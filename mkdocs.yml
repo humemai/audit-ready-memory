@@ -1,0 +1,85 @@
+site_name: Audit-Ready Memory
+site_url: https://docs.humem.ai/audit-ready-memory/
+site_description: Documentation for Audit-Ready Memory, a local-first memory layer for AI agents
+site_author: HumemAI
+repo_url: https://github.com/humemai/audit-ready-memory
+repo_name: humemai/audit-ready-memory
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2026 HumemAI
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: deep orange
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep orange
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/humemai/audit-ready-memory
+  version:
+    provider: mike
+  version_tag: !ENV [MIKE_VERSION_TAG, main]
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quickstart.md
+  - Guide:
+      - Design Goals: guide/design-goals.md
+      - Memory Model: guide/memory-model.md
+  - Development:
+      - Documentation: development/documentation.md
+      - Release Workflow: development/release.md
