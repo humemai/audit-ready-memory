@@ -182,7 +182,11 @@ def replay_delete_tab(memory: Memory, speaker: str):
     if total == 0:
         st.caption("Nothing to replay yet.")
     else:
-        up_to = st.slider("Replay the log up to seq", 0, total - 1, total - 1)
+        if total == 1:
+            up_to = 0
+            st.caption("One event in the log; replaying up to seq 0.")
+        else:
+            up_to = st.slider("Replay the log up to seq", 0, total - 1, total - 1)
         state = memory.replay(up_to_seq=up_to)
         st.write(
             f"At seq {up_to}: {len(state.visible_messages)} visible message(s), "
