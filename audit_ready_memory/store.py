@@ -1,9 +1,9 @@
-"""ArcadeDB-backed append-only event store.
+"""ArcadeDB-backed append-only memory.
 
-The store persists events from :mod:`audit_ready_memory.events` into an
+``Memory`` persists events from :mod:`audit_ready_memory.events` into an
 embedded ArcadeDB database. Appends are the only write path: events are
 never updated or removed. Deletion of memory content happens by appending
-a ``DeletionEvent``; the log itself stays intact.
+a ``Deletion`` event; the log itself stays intact.
 
 Each appended event gets a monotonically increasing ``seq`` assigned by
 the store, giving the log a total order independent of wall-clock time.
@@ -18,9 +18,10 @@ from uuid import UUID
 import arcadedb_embedded as arcadedb
 
 from .events import (
-    DeletionEvent,
-    RetrievalEvent,
-    UtteranceEvent,
+    Deletion,
+    Document,
+    Message,
+    Recall,
     event_from_dict,
     event_to_dict,
 )
@@ -28,17 +29,19 @@ from .replay import MemoryState, replay
 
 _EVENT_TYPE = "MemoryEvent"
 
-ConcreteEvent = UtteranceEvent | RetrievalEvent | DeletionEvent
+ConcreteEvent = Message | Document | Recall | Deletion
 
 
-class EventStore:
-    """Append-only event log persisted in an embedded ArcadeDB database.
+class Memory:
+    """Append-only memory log persisted in an embedded ArcadeDB database.
 
     Usage::
 
-        with EventStore("./memory-db") as store:
-            stored = store.append(UtteranceEvent(speaker="user", content="hi"))
-            assert stored.seq == 0
+        with Memory("./memory-db") as memory:
+            m = memory.add_message(Message(speaker="anna", content="hi"))
+            d = memory.add_document(Document(name="report.txt", text="..."))
+            memory.record_recall(Recall(query="report", recalled=(d.id,)))
+            memory.delete((m.id,), reason="user request")
     """
 
     def __init__(self, path: str | Path):
@@ -53,13 +56,13 @@ class EventStore:
     def _init_schema(self) -> None:
         cmds = [
             f"CREATE DOCUMENT TYPE {_EVENT_TYPE}",
-            f"CREATE PROPERTY {_EVENT_TYPE}.event_id STRING",
+            f"CREATE PROPERTY {_EVENT_TYPE}.id STRING",
             f"CREATE PROPERTY {_EVENT_TYPE}.seq LONG",
             f"CREATE PROPERTY {_EVENT_TYPE}.kind STRING",
             f"CREATE PROPERTY {_EVENT_TYPE}.timestamp STRING",
             f"CREATE PROPERTY {_EVENT_TYPE}.session_id STRING",
             f"CREATE PROPERTY {_EVENT_TYPE}.payload STRING",
-            f"CREATE INDEX ON {_EVENT_TYPE} (event_id) UNIQUE",
+            f"CREATE INDEX ON {_EVENT_TYPE} (id) UNIQUE",
             f"CREATE INDEX ON {_EVENT_TYPE} (seq) UNIQUE",
         ]
         for cmd in cmds:
@@ -73,23 +76,18 @@ class EventStore:
             return -1
         return int(result[0]["max_seq"])
 
-    def append(self, event: ConcreteEvent) -> ConcreteEvent:
-        """Append an event to the log, assigning its ``seq``.
-
-        Returns a copy of the event with ``seq`` set. Raises ``ValueError``
-        if the event already carries a ``seq`` (it was appended before).
-        """
+    def _append(self, event: ConcreteEvent) -> ConcreteEvent:
         if event.seq is not None:
-            raise ValueError(f"event {event.event_id} already has seq={event.seq}")
+            raise ValueError(f"event {event.id} already has seq={event.seq}")
         stored = event.model_copy(update={"seq": self._next_seq})
         data = event_to_dict(stored)
         with self._db.transaction():
             self._db.command(
                 "sql",
                 f"INSERT INTO {_EVENT_TYPE} SET "
-                "event_id = ?, seq = ?, kind = ?, timestamp = ?, "
+                "id = ?, seq = ?, kind = ?, timestamp = ?, "
                 "session_id = ?, payload = ?",
-                data["event_id"],
+                data["id"],
                 stored.seq,
                 data["kind"],
                 data["timestamp"],
@@ -99,18 +97,69 @@ class EventStore:
         self._next_seq += 1
         return stored
 
-    def get_event(self, event_id: UUID | str) -> ConcreteEvent | None:
+    def _require_content_event(self, event_id: UUID, action: str) -> None:
+        existing = self.get(event_id)
+        if existing is None:
+            raise ValueError(f"cannot {action} unknown event {event_id}")
+        if not isinstance(existing, (Message, Document)):
+            raise ValueError(
+                f"cannot {action} {existing.kind} event {event_id}; "
+                "only messages and documents hold memory content"
+            )
+
+    def add_message(self, message: Message) -> Message:
+        """Append a conversational turn (episodic memory)."""
+        return self._append(message)
+
+    def add_document(self, document: Document) -> Document:
+        """Append an uploaded document (semantic memory)."""
+        return self._append(document)
+
+    def record_recall(self, recall: Recall) -> Recall:
+        """Append a read: which memories entered the AI's context.
+
+        Each recalled id must reference an existing message or document.
+        """
+        for target in recall.recalled:
+            self._require_content_event(target, "recall")
+        return self._append(recall)
+
+    def delete(
+        self,
+        targets: tuple[UUID, ...] | list[UUID],
+        reason: str,
+        *,
+        requested_by: str | None = None,
+        session_id: str | None = None,
+    ) -> Deletion:
+        """Append a ``Deletion`` event after validating its targets.
+
+        Each target must be an existing message or document. The targets'
+        content stays in the log (the log is append-only) but is excluded
+        from replayed memory state from this point on.
+        """
+        for target in targets:
+            self._require_content_event(target, "delete")
+        event = Deletion(
+            targets=tuple(targets),
+            reason=reason,
+            requested_by=requested_by,
+            session_id=session_id,
+        )
+        return self._append(event)
+
+    def get(self, event_id: UUID | str) -> ConcreteEvent | None:
         """Return the event with the given id, or ``None`` if absent."""
         rows = self._db.query(
             "sql",
-            f"SELECT payload FROM {_EVENT_TYPE} WHERE event_id = ?",
+            f"SELECT payload FROM {_EVENT_TYPE} WHERE id = ?",
             str(event_id),
         ).to_list()
         if not rows:
             return None
         return event_from_dict(json.loads(rows[0]["payload"]))
 
-    def list_events(
+    def events(
         self,
         *,
         kind: str | None = None,
@@ -143,38 +192,7 @@ class EventStore:
 
     def replay(self, *, up_to_seq: int | None = None) -> MemoryState:
         """Reconstruct memory state from the log, optionally at a past point."""
-        return replay(self.list_events(up_to_seq=up_to_seq))
-
-    def delete(
-        self,
-        target_event_ids: tuple[UUID, ...] | list[UUID],
-        reason: str,
-        *,
-        requested_by: str | None = None,
-        session_id: str | None = None,
-    ) -> DeletionEvent:
-        """Append a ``DeletionEvent`` after validating its targets.
-
-        Each target must be an existing utterance in the log. The targets'
-        content stays in the log (the log is append-only) but is excluded
-        from replayed memory state from this point on.
-        """
-        for target in target_event_ids:
-            existing = self.get_event(target)
-            if existing is None:
-                raise ValueError(f"cannot delete unknown event {target}")
-            if not isinstance(existing, UtteranceEvent):
-                raise ValueError(
-                    f"cannot delete {existing.kind} event {target}; "
-                    "only utterances hold deletable content"
-                )
-        event = DeletionEvent(
-            target_event_ids=tuple(target_event_ids),
-            reason=reason,
-            requested_by=requested_by,
-            session_id=session_id,
-        )
-        return self.append(event)
+        return replay(self.events(up_to_seq=up_to_seq))
 
     def __len__(self) -> int:
         return self._db.count_type(_EVENT_TYPE)
@@ -182,7 +200,7 @@ class EventStore:
     def close(self) -> None:
         self._db.close()
 
-    def __enter__(self) -> EventStore:
+    def __enter__(self) -> Memory:
         return self
 
     def __exit__(self, *exc_info) -> None:

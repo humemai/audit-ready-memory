@@ -3,16 +3,16 @@
 from importlib.metadata import PackageNotFoundError, version
 
 from .events import (
-    DeletionEvent,
+    Deletion,
+    Document,
     Event,
-    Provenance,
-    RetrievalEvent,
-    UtteranceEvent,
+    Message,
+    Recall,
     event_from_dict,
     event_to_dict,
 )
 from .replay import MemoryState, RecallStats, replay
-from .store import EventStore
+from .store import Memory
 
 try:
     __version__ = version("audit-ready-memory")
@@ -20,14 +20,14 @@ except PackageNotFoundError:
     __version__ = "0+unknown"
 
 __all__ = [
-    "DeletionEvent",
+    "Deletion",
+    "Document",
     "Event",
-    "EventStore",
+    "Memory",
     "MemoryState",
-    "Provenance",
+    "Message",
+    "Recall",
     "RecallStats",
-    "RetrievalEvent",
-    "UtteranceEvent",
     "event_from_dict",
     "event_to_dict",
     "replay",
