@@ -1,0 +1,85 @@
+"""Deterministic replay: reconstruct memory state from the event log.
+
+``replay`` is a pure fold over the ordered log. Given the same events it
+always produces the same :class:`MemoryState`, which is what makes the
+log auditable: any past state can be reproduced exactly, and deletion is
+visible as a tombstone rather than silent absence.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import Iterable, Mapping
+from uuid import UUID
+
+from .events import DeletionEvent, RetrievalEvent, UtteranceEvent
+
+ConcreteEvent = UtteranceEvent | RetrievalEvent | DeletionEvent
+
+
+@dataclass(frozen=True)
+class RecallStats:
+    """How often and how recently an utterance entered an agent's context."""
+
+    num_recalled: int = 0
+    last_recalled_at: datetime | None = None
+
+
+@dataclass(frozen=True)
+class MemoryState:
+    """Memory state at a point in the log (after event ``last_seq``)."""
+
+    utterances: tuple[UtteranceEvent, ...] = ()
+    deleted: Mapping[UUID, DeletionEvent] = field(default_factory=dict)
+    recall_stats: Mapping[UUID, RecallStats] = field(default_factory=dict)
+    last_seq: int | None = None
+
+    @property
+    def visible_utterances(self) -> tuple[UtteranceEvent, ...]:
+        """Utterances in log order, excluding deleted ones."""
+        return tuple(u for u in self.utterances if u.event_id not in self.deleted)
+
+    def is_deleted(self, event_id: UUID) -> bool:
+        return event_id in self.deleted
+
+
+def replay(events: Iterable[ConcreteEvent]) -> MemoryState:
+    """Fold an ordered event log into a :class:`MemoryState`.
+
+    Events must be in log order with ``seq`` assigned and strictly
+    increasing; raises ``ValueError`` otherwise.
+    """
+    utterances: list[UtteranceEvent] = []
+    deleted: dict[UUID, DeletionEvent] = {}
+    recall_stats: dict[UUID, RecallStats] = {}
+    last_seq: int | None = None
+
+    for event in events:
+        if event.seq is None:
+            raise ValueError(f"event {event.event_id} has no seq; not from the log")
+        if last_seq is not None and event.seq <= last_seq:
+            raise ValueError(
+                f"out-of-order event: seq {event.seq} after seq {last_seq}"
+            )
+        last_seq = event.seq
+
+        if isinstance(event, UtteranceEvent):
+            utterances.append(event)
+        elif isinstance(event, RetrievalEvent):
+            for target in event.retrieved_event_ids:
+                stats = recall_stats.get(target, RecallStats())
+                recall_stats[target] = RecallStats(
+                    num_recalled=stats.num_recalled + 1,
+                    last_recalled_at=event.timestamp,
+                )
+        elif isinstance(event, DeletionEvent):
+            for target in event.target_event_ids:
+                deleted[target] = event
+
+    return MemoryState(
+        utterances=tuple(utterances),
+        deleted=deleted,
+        recall_stats=recall_stats,
+        last_seq=last_seq,
+    )
