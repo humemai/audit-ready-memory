@@ -26,6 +26,7 @@ from .events import (
     event_to_dict,
 )
 from .replay import MemoryState, replay
+from .retrieval import search
 
 _EVENT_TYPE = "MemoryEvent"
 
@@ -123,6 +124,32 @@ class Memory:
         for target in recall.recalled:
             self._require_content_event(target, "recall")
         return self._append(recall)
+
+    def recall(
+        self,
+        query: str,
+        *,
+        limit: int = 5,
+        session_id: str | None = None,
+        source: str = "unknown",
+        actor: str | None = None,
+    ) -> tuple[Recall, list[Message | Document]]:
+        """Search visible memory and append a matching ``Recall`` event.
+
+        The returned events are exactly the set recorded in the audit log;
+        retrieval and its audit record cannot diverge.
+        """
+        items = search(self.replay(), query, limit=limit)
+        recall = self.record_recall(
+            Recall(
+                query=query,
+                recalled=tuple(item.id for item in items),
+                session_id=session_id,
+                source=source,
+                actor=actor,
+            )
+        )
+        return recall, items
 
     def delete(
         self,

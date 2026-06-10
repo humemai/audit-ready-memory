@@ -208,3 +208,6 @@ __marimo__/
 
 # ArcadeDB runtime logs
 log/
+
+# Demo database (local memory log created by demo/app.py)
+demo/demo-db/
