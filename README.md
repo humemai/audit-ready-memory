@@ -62,8 +62,8 @@ gives the log a total order that does not depend on the clock.
   which query.
 - **`Deletion`** is a tombstone naming its targets and why they were removed.
 
-Read the [memory model](https://docs.humem.ai/audit-ready-memory/guide/memory-model/) for the
-invariants these guarantee.
+Read the [memory model](https://docs.humem.ai/audit-ready-memory/latest/guide/memory-model/)
+for the invariants these guarantee.
 
 ## Demo
 
@@ -87,11 +87,11 @@ deletion all work. Only the AI chat is disabled.
 - **The demo's model call is a cloud call.** The memory is local; recalled text sent to
   OpenRouter is not.
 
-More in [limitations](https://docs.humem.ai/audit-ready-memory/guide/limitations/).
+More in [limitations](https://docs.humem.ai/audit-ready-memory/latest/guide/limitations/).
 
 ## Documentation
 
-<https://docs.humem.ai/audit-ready-memory/>
+<https://docs.humem.ai/audit-ready-memory/latest/>
 
 ## Development
 
