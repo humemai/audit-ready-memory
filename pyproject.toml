@@ -9,7 +9,7 @@ authors = [
 ]
 dynamic = ["version"]
 dependencies = [
-    "arcadedb-embedded>=26.6.1",
+    "arcadedb-embedded>=26.8.1",
     "pydantic>=2.13.4",
 ]
 
