@@ -6,17 +6,25 @@ the package itself.
 ## From PyPI
 
 ```bash
-uv add audit-ready-memory     # or: pip install audit-ready-memory
+uv add audit-ready-memory
 ```
 
 Check it worked:
 
 ```bash
-python -c "from audit_ready_memory import Memory; print('ok')"
+uv run python -c "from audit_ready_memory import Memory; print('ok')"
 ```
 
 Versions are below `0.1.0` on purpose: the API is usable but not frozen. Pin an exact version
 if you depend on it.
+
+## Without installing anything
+
+To try it in a throwaway environment that leaves nothing behind:
+
+```bash
+uv run --with audit-ready-memory python
+```
 
 ## From source
 

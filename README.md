@@ -14,7 +14,7 @@ Funded by [SIDN Fund](https://www.sidnfonds.nl/).
 ## Install
 
 ```bash
-uv add audit-ready-memory     # or: pip install audit-ready-memory
+uv add audit-ready-memory
 ```
 
 Python 3.10 or newer. The database is embedded, so there is no server to run.
