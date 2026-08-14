@@ -80,6 +80,10 @@ nav:
   - Guide:
       - Design Goals: guide/design-goals.md
       - Memory Model: guide/memory-model.md
+      - Retention and Deletion: guide/retention-and-deletion.md
+      - Limitations: guide/limitations.md
+  - Reference:
+      - API: reference/api.md
   - Development:
       - Documentation: development/documentation.md
       - Release Workflow: development/release.md

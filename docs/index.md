@@ -1,19 +1,48 @@
 # Audit-Ready Memory
 
-Audit-Ready Memory is a local-first memory layer for AI agents with transparent logs, deterministic replay, and explicit deletion workflows.
+A local-first memory layer for AI agents. Memory is a time-stamped log you can read, replay,
+and delete from, rather than hidden state inside a model or a hosted service.
 
-The goal is to make agent memory inspectable, reproducible, and accountable in practice, rather than hidden inside opaque model state or external services.
+Events are appended to an embedded [ArcadeDB](https://arcadedb.com/) database and never
+updated in place. Reads are recorded as well as writes, so the log answers the question an
+audit actually asks: what did the system show the model, and when? Deletion is an appended
+tombstone carrying a required reason, and deleted content cannot re-enter a model's context.
 
-This work is funded by [SIDN Fund](https://www.sidnfonds.nl/).
+Funded by [SIDN Fund](https://www.sidnfonds.nl/).
 
-## What the project focuses on
+## Start here
 
-- Time-stamped memory records instead of hidden internal state
-- Transparent audit trails for memory writes and reads
-- Deterministic replay for reproducibility and debugging
-- Explicit deletion workflows and lifecycle controls
-- Local-first operation suitable for public-interest and privacy-sensitive settings
+- [Installation](getting-started/installation.md)
+- [Quick Start](getting-started/quickstart.md) builds a log, replays it, and deletes from it
+- [Memory Model](guide/memory-model.md) covers the four event kinds and the invariants
+- [API Reference](reference/api.md)
 
-## Documentation status
+## What it gives you
 
-This documentation set is being established alongside the repository. It currently covers the project direction, documentation workflow, and release/deployment setup. Technical reference material will expand as implementation lands in the repository.
+- **A readable history.** Every write and every read is an event with an id, a UTC timestamp,
+  and a store-assigned position in the log.
+- **Reconstructable state.** `replay(up_to_seq=n)` rebuilds memory as it stood at any past
+  point, by folding the log. The same log always gives the same state.
+- **Auditable reads.** Retrieval and its audit record are produced in one step, so what the
+  log says the model saw is what the model saw.
+- **Deletion you can prove.** Removing content appends a tombstone with a reason and
+  optionally who asked. The removal is itself part of the record.
+- **No server.** The database is a local directory. Nothing leaves the machine unless you
+  wire up a model that sends it.
+
+## What it does not give you
+
+Deletion excludes content from every read path but does not erase it from the log.
+`retain_until` is recorded and not yet enforced. The log is ordered but not hash-chained, so
+it resists accidents rather than a determined operator. Retrieval is keyword overlap, not
+semantic search.
+
+[Limitations](guide/limitations.md) covers all of this in full, and
+[retention and deletion](guide/retention-and-deletion.md) explains what to do about it.
+
+## Status
+
+The library is implemented and tested: 74 tests covering schema validation, replay
+determinism, store behavior, deletion auditability, and persistence across reopen. Benchmarks
+and a versioned release are in progress. The published PyPI package is not current yet, so
+install from source for now.
