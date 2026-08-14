@@ -3,21 +3,29 @@
 Python 3.10 or newer. The database is embedded, so there is nothing to install or run beside
 the package itself.
 
-## From source
-
-The package published on PyPI predates the implementation and is not usable. Until `v0.1.0`
-is released, install from the repository:
+## From PyPI
 
 ```bash
-git clone https://github.com/humemai/audit-ready-memory
-cd audit-ready-memory
-uv sync
+uv add audit-ready-memory     # or: pip install audit-ready-memory
 ```
 
 Check it worked:
 
 ```bash
-uv run python -c "from audit_ready_memory import Memory; print('ok')"
+python -c "from audit_ready_memory import Memory; print('ok')"
+```
+
+Versions are below `0.1.0` on purpose: the API is usable but not frozen. Pin an exact version
+if you depend on it.
+
+## From source
+
+For the demo, the tests, or to work on the library itself:
+
+```bash
+git clone https://github.com/humemai/audit-ready-memory
+cd audit-ready-memory
+uv sync
 ```
 
 ## Optional extras

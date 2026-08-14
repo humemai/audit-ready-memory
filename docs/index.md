@@ -42,7 +42,9 @@ semantic search.
 
 ## Status
 
-The library is implemented and tested: 74 tests covering schema validation, replay
+The library is implemented, tested, and published. 74 tests cover schema validation, replay
 determinism, store behavior, deletion auditability, and persistence across reopen. Benchmarks
-and a versioned release are in progress. The published PyPI package is not current yet, so
-install from source for now.
+are in progress.
+
+Version numbers are still below `0.1.0` on purpose. The API is usable but not yet frozen, so
+pin an exact version if you depend on it.

@@ -13,12 +13,8 @@ Funded by [SIDN Fund](https://www.sidnfonds.nl/).
 
 ## Install
 
-The package on PyPI is not current yet; install from source until `v0.1.0` is released:
-
 ```bash
-git clone https://github.com/humemai/audit-ready-memory
-cd audit-ready-memory
-uv sync
+uv add audit-ready-memory     # or: pip install audit-ready-memory
 ```
 
 Python 3.10 or newer. The database is embedded, so there is no server to run.
