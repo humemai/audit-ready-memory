@@ -17,7 +17,7 @@ Funded by [SIDN Fund](https://www.sidnfonds.nl/).
 uv add audit-ready-memory
 ```
 
-Python 3.10 or newer. The database is embedded, so there is no server to run.
+Python 3.11 or newer. The database is embedded, so there is no server to run.
 
 ## Thirty-second example
 
