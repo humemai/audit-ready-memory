@@ -2,14 +2,14 @@
 name = "audit-ready-memory"
 description = "Audit-ready, local-first memory for AI agents"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [
   { name = "HumemAI" },
 ]
 dynamic = ["version"]
 dependencies = [
-    "arcadedb-embedded>=26.8.1",
+    "arcadedb>=26.11.1",
     "pydantic>=2.13.4",
 ]
 

@@ -1,6 +1,6 @@
 # Installation
 
-Python 3.10 or newer. The database is embedded, so there is nothing to install or run beside
+Python 3.11 or newer. The database is embedded, so there is nothing to install or run beside
 the package itself.
 
 ## From PyPI
@@ -54,8 +54,8 @@ uv sync --all-groups --all-extras
 
 Two at runtime:
 
-- `arcadedb-embedded` for the local database. It bundles a JVM, so the wheel is large, around
-  63 MB. There is no server component.
+- `arcadedb` for the local database. This is the native build: it needs no JVM and no server
+  component. The wheel is around 66 MB.
 - `pydantic` for the event schema.
 
 The `demo` extra adds `streamlit`, `openai`, `pandas`, `openpyxl`, `pypdf`, and

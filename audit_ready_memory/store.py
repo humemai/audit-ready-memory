@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 from uuid import UUID
 
-import arcadedb_embedded as arcadedb
+import arcadedb
 
 from .events import (
     Deletion,
