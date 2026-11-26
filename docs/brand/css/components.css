@@ -58,6 +58,128 @@
   }
 }
 
+/* A card that is not a link (.hm-card with .hm-card--static): the same box,
+   but nothing happens on hover or focus, because there is nothing to press, and
+   its rows take their own height. The three-row template of .hm-card is for a
+   title, a description and a link; a card of rows has a title, a list and often
+   a note, and the template would stretch whichever came second. A direct span is
+   plain text here, not the link line. Mirrored from the Humem Tower's .tw-card
+   (humemai/design-system#17). */
+.hm-card--static {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hm-space-3);
+  min-inline-size: 0;
+}
+
+.hm-card--static:hover,
+.hm-card--static:focus-visible {
+  border-color: var(--hm-border);
+  transform: none;
+}
+
+.hm-card--static > span {
+  margin-top: 0;
+  color: inherit;
+  font-weight: inherit;
+}
+
+/* Label and value rows: a definition list in two columns (dl > dt + dd). The
+   label is small and muted, and a value that wraps stays in its own column, so
+   the pairs keep their alignment and a screen reader reads them as pairs. The
+   label column is 8.5rem, or 40% of the list when that is less, so it follows
+   the width of the card with no query and a narrow card keeps a value column.
+   Label and value have different sizes, so from the top of a row a label sat
+   above the value's first line: a row is aligned on the first baseline of both.
+   Mirrored from the Humem Tower's .tw-kv (humemai/design-system#17). */
+.hm-kv {
+  display: grid;
+  grid-template-columns: minmax(0, min(8.5rem, 40%)) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--hm-space-2) var(--hm-space-4);
+  margin: 0;
+}
+
+.hm-kv dt {
+  min-inline-size: 0;
+  color: var(--hm-text-muted);
+  font-size: var(--hm-text-sm);
+  font-weight: var(--hm-weight-medium);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.hm-kv dd {
+  min-inline-size: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Tabs: a row of links under a page title that switches between views of one
+   list or one subject (nav > ul > li > a, with a name on the nav). They are
+   plain links, one URL each, with no script and no ARIA tab roles: the page
+   changes, so a keyboard and a screen reader use them as the links they are. The
+   open one carries aria-current="page" and is marked as a main nav marks its
+   page, semibold with a 2px brand rule under it, so colour is not the only cue.
+   A link is --hm-control-h tall (44px at 999px and narrower, 36 above). Links
+   that do not fit one line go to the next as whole links, and a name or count
+   that is wider than the screen on its own wraps inside its link. An optional
+   count sits beside the name in .hm-tabs__count. Mirrored from the Humem Tower's
+   .tw-tabs (humemai/design-system#16). */
+.hm-tabs ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hm-space-1);
+  margin: 0 0 var(--hm-space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.hm-tabs li {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* anywhere, not break-word: only then does a flex item count the break points
+   when it works out how narrow it may get ("Documentation" was 4px wider than a
+   320px window at a 200% root font size). */
+.hm-tabs a {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--hm-space-2);
+  max-inline-size: 100%;
+  min-block-size: var(--hm-control-h);
+  padding-inline: var(--hm-space-3);
+  border-block-end: 2px solid transparent;
+  color: var(--hm-text);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.hm-tabs a:hover {
+  color: var(--hm-link-hover);
+  text-decoration: underline;
+}
+
+.hm-tabs a:focus-visible {
+  outline: 2px solid var(--hm-focus);
+  outline-offset: 2px;
+}
+
+.hm-tabs a[aria-current="page"] {
+  border-block-end-color: var(--hm-brand);
+  font-weight: var(--hm-weight-semibold);
+}
+
+.hm-tabs__count {
+  color: var(--hm-text-muted);
+  font-size: var(--hm-text-sm);
+  font-weight: var(--hm-weight-regular);
+}
+
 /* Hint: a term's short explanation. A small ? beside the word, opened by hover
    with a mouse and by click, tap or Enter everywhere (humemai/design-system #12,
    mirrored from Stateloop's .stl-hint of 2026-11-06). A native title="" tooltip
