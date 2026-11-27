@@ -1,6 +1,8 @@
 """Tests for what the demo adds: separate memories, deletion, limits, and examples."""
 
 import os
+import subprocess
+import sys
 import threading
 from datetime import date
 from pathlib import Path
@@ -247,3 +249,24 @@ class TestStart:
         with pytest.raises(SystemExit):
             start.main()
         assert os.environ.get("ARM_DEMO_HOSTED") != "1"
+
+
+def test_an_exit_closes_open_memories(tmp_path):
+    """A restart ends the process with memories open; none may be left unclosed."""
+    # Like the server: a background thread still refers to the open memory when the process ends,
+    # so nothing would close it on the way out.
+    script = """
+import sys, threading
+from demo import hosting
+
+spaces = hosting.Spaces(sys.argv[1], idle_close_seconds=1800, keep_days=90)
+with spaces.use("alice"):
+    pass
+assert spaces.is_open("alice")
+held = lambda kept: threading.Event().wait()
+threading.Thread(target=held, args=(spaces,), daemon=True).start()
+"""
+    root = Path(__file__).parent.parent
+    subprocess.run([sys.executable, "-c", script, str(tmp_path)], check=True, cwd=root, timeout=120)
+    assert (tmp_path / "spaces" / "alice" / "db").is_dir()
+    assert not list(tmp_path.rglob("database.lck"))

@@ -5,6 +5,7 @@ Nothing here imports Streamlit, so it can be tested on its own.
 
 from __future__ import annotations
 
+import atexit
 import hashlib
 import json
 import os
@@ -102,6 +103,8 @@ class Spaces:
         self._guard = threading.Lock()
         self._spaces: dict[str, _Space] = {}
         self._purged_on = 0.0
+        # a restart or a deploy stops the server; leave no database open behind it
+        atexit.register(self.close)
 
     def _folder(self, key: str) -> Path:
         if not key.isalnum():
