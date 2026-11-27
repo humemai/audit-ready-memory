@@ -102,12 +102,19 @@ output, and can time the everyday operations. See
 
 <https://docs.humem.ai/audit-ready-memory/latest/>
 
+In this repository: [in one page](docs/summary.md), [walkthroughs](docs/guide/walkthroughs.md),
+[privacy and data flow](docs/guide/privacy-and-data-flow.md),
+[adoption guide](docs/guide/adoption.md), [templates](docs/guide/templates.md), and
+[questions](docs/guide/faq.md). [Feedback](https://github.com/humemai/audit-ready-memory/issues/new?template=feedback.yml)
+is welcome, no technical knowledge needed.
+
 ## Development
 
 ```bash
-uv sync --all-groups --all-extras
-uv run pytest
+bash scripts/verify.sh   # set up, tests, benchmark set, examples
 ```
+
+See [contributing](CONTRIBUTING.md) and the [changelog](CHANGELOG.md).
 
 ## License
 

@@ -300,13 +300,15 @@ def why_tab(memory: Memory):
         st.caption("No recall has read this item.")
     for row in recalls:
         recall = memory.events(after_seq=row["seq"] - 1, up_to_seq=row["seq"])[0]
-        st.write(f"- #{row['seq']} at {row['at']}: query {recall.query!r}")
+        at = recall.timestamp.isoformat(timespec="seconds")
+        st.write(f"- #{row['seq']} at {at}: query {recall.query!r}")
     st.markdown("**Removed by**")
     if not removals:
         st.caption("This item has not been deleted.")
     for row in removals:
         deletion = memory.events(after_seq=row["seq"] - 1, up_to_seq=row["seq"])[0]
-        st.write(f"- #{row['seq']} at {row['at']}: {deletion.reason}")
+        at = deletion.timestamp.isoformat(timespec="seconds")
+        st.write(f"- #{row['seq']} at {at}: {deletion.reason}")
     st.markdown("**The graph**")
     st.graphviz_chart(graph_source(memory, item.seq))
     with st.expander("The query behind “Read by”"):
@@ -334,7 +336,8 @@ def replay_delete_tab(memory: Memory, speaker: str, full: bool):
             f"{len(state.visible_documents)} visible document(s), "
             f"{len(state.deleted)} deleted item(s)."
         )
-        for item in (*state.visible_messages, *state.visible_documents):
+        shown = (*state.visible_messages, *state.visible_documents)
+        for item in sorted(shown, key=lambda item: item.seq):
             st.write(f"- #{item.seq}: {event_summary(item)[:120]}")
         st.caption(
             "The same log always gives the same state. This covers the memory, "

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below, with the version or commit you used."
+title: "Audit-Ready Memory: local-first, auditable memory for AI agents"
+type: software
+authors:
+  - family-names: Kim
+    given-names: Taewoon
+    affiliation: HumemAI
+repository-code: "https://github.com/humemai/audit-ready-memory"
+url: "https://docs.humem.ai/audit-ready-memory/latest/"
+license: MIT
+keywords:
+  - AI agent memory
+  - audit log
+  - data deletion
+  - local-first
