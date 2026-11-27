@@ -211,6 +211,8 @@ log/
 
 # Demo database (local memory log created by demo/app.py)
 demo/demo-db/
+demo/data/
+.streamlit/secrets.toml
 
 # local benchmark runs
 benchmarks/results/

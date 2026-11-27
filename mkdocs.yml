@@ -99,6 +99,7 @@ nav:
       - Retention and Deletion: guide/retention-and-deletion.md
       - Limitations: guide/limitations.md
       - Benchmarks: guide/benchmarks.md
+      - Demo: guide/demo.md
   - Reference:
       - API: reference/api.md
   - Development:

@@ -16,7 +16,7 @@ dependencies = [
 [project.optional-dependencies]
 demo = [
     "openai>=1.0",
-    "streamlit>=1.30",
+    "streamlit[auth]>=1.50",
     "pandas>=2.0",
     "openpyxl>=3.1",
     "pypdf>=4.0",

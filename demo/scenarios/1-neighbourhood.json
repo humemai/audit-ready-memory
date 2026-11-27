@@ -1,0 +1,14 @@
+{
+  "title": "Neighbourhood water pump",
+  "description": "Residents and a coordinator report a broken pump. Made-up data.",
+  "events": [
+    {"type": "message", "speaker": "resident-a", "text": "The water pump on Elm Street stopped working this morning."},
+    {"type": "message", "speaker": "resident-b", "text": "I heard a grinding noise from the pump last night."},
+    {"type": "message", "speaker": "coordinator", "text": "Thanks both. A mechanic will inspect the pump on Thursday."},
+    {"type": "document", "speaker": "coordinator", "name": "pump-inspection.txt", "text": "Inspection report, Elm Street pump. The bearing is worn and the seal leaks. Replace both. Expected cost 340 euro. The pump is safe to leave switched off until then."},
+    {"type": "message", "speaker": "resident-c", "text": "My phone number for the mechanic is 06 0000 0000, please remove it afterwards."},
+    {"type": "message", "speaker": "coordinator", "text": "The temporary code for the pump house is 4471.", "keep_minutes": 0},
+    {"type": "message", "speaker": "coordinator", "text": "The repair is planned for next Monday. The street stays open."},
+    {"type": "recall", "query": "pump"}
+  ]
+}
