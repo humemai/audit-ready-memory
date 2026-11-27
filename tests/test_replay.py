@@ -57,6 +57,19 @@ class TestReplayFunction:
         assert state.visible_documents == ()
         assert state.documents == (d,)
 
+    def test_first_deletion_wins(self):
+        a = _message("a", 0)
+        first = Deletion(targets=(a.id,), reason="resident asked").model_copy(
+            update={"seq": 1}
+        )
+        second = Deletion(targets=(a.id,), reason="routine cleanup").model_copy(
+            update={"seq": 2}
+        )
+        state = replay([a, first, second])
+        assert state.deleted[a.id] is first
+        assert state.visible_messages == ()
+        assert state.last_seq == 2
+
     def test_recall_updates_stats(self):
         a = _message("a", 0)
         t1 = datetime(2026, 6, 10, 12, 0, tzinfo=timezone.utc)
