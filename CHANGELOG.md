@@ -24,6 +24,7 @@ All notable changes to this project. Versions are the tags of this repository.
 ### Fixed
 
 - Deleting an item a second time no longer changes which deletion is reported as having removed it.
+- The demo closes its databases when it is stopped, so a restart no longer leaves them unclosed.
 
 ## 0.0.2, 14 August 2026
 
