@@ -14,6 +14,7 @@ COPY audit_ready_memory ./audit_ready_memory
 RUN uv sync --locked --no-dev --extra demo
 
 COPY demo ./demo
+COPY docs/brand/export ./docs/brand/export
 COPY .streamlit/config.toml ./.streamlit/config.toml
 
 # demo/start.py starts as root only to take ownership of the mounted disk, then drops to this user.

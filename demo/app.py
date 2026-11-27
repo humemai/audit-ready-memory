@@ -24,6 +24,8 @@ from io import BytesIO
 from pathlib import Path
 
 HERE = Path(__file__).parent
+# the vendored design system holds the HumemAI lockups
+BRAND = HERE.parent / "docs" / "brand" / "export"
 sys.path.insert(0, str(HERE))
 
 import streamlit as st  # noqa: E402
@@ -368,6 +370,12 @@ def replay_delete_tab(memory: Memory, speaker: str, full: bool):
         st.rerun()
 
 
+def show_logo():
+    """Say who runs the demo: the HumemAI lockup, in the rose version on dark."""
+    name = "lockup-dark.png" if st.context.theme.type == "dark" else "lockup.png"
+    st.logo(str(BRAND / name), size="large", link="https://humem.ai")
+
+
 def privacy_note() -> str:
     return (HERE / "privacy.md").read_text(encoding="utf-8")
 
@@ -485,6 +493,7 @@ def main():
         page_title="Audit-Ready Memory",
         page_icon=str(HERE / "assets" / "icon.png"),
     )
+    show_logo()
     if os.environ.get("ARM_DEMO_HOSTED") != "1":
         load_dotenv()
     settings = hosting.Settings.from_env()
