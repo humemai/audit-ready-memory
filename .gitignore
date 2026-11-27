@@ -211,3 +211,6 @@ log/
 
 # Demo database (local memory log created by demo/app.py)
 demo/demo-db/
+
+# local benchmark runs
+benchmarks/results/
