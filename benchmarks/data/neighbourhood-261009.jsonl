@@ -1,0 +1,300 @@
+{"op": "message", "ref": 0, "retain_until": "2026-04-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-c", "text": "item00000 bench repaired secret00000"}
+{"op": "message", "ref": 1, "retain_until": "2026-03-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-a", "text": "item00001 streetlight missing secret00001"}
+{"op": "message", "ref": 2, "retain_until": "2026-02-01T00:00:00+00:00", "session": null, "speaker": "resident-b", "text": "item00002 drain checked secret00002"}
+{"op": "message", "ref": 3, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00003 pump checked secret00003"}
+{"op": "message", "ref": 4, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00004 playground repaired secret00004"}
+{"op": "message", "ref": 5, "retain_until": "2099-01-01T00:00:00+00:00", "session": "south-street", "speaker": "coordinator", "text": "item00005 drain blocked secret00005"}
+{"op": "message", "ref": 6, "retain_until": "2026-03-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-b", "text": "item00006 streetlight leaking secret00006"}
+{"op": "message", "ref": 7, "retain_until": "2026-02-01T00:00:00+00:00", "session": "north-street", "speaker": "coordinator", "text": "item00007 gate replaced secret00007"}
+{"op": "message", "ref": 8, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00008 gate blocked secret00008"}
+{"op": "message", "ref": 9, "retain_until": "2026-04-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-b", "text": "item00009 playground replaced secret00009"}
+{"op": "message", "ref": 10, "retain_until": "2026-04-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-c", "text": "item00010 playground reported secret00010"}
+{"op": "message", "ref": 11, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00011 gate missing secret00011"}
+{"op": "message", "ref": 12, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00012 bin checked secret00012"}
+{"name": "report-00013.txt", "op": "document", "ref": 13, "retain_until": null, "text": "item00013 pump broken secret00013 crossing checked"}
+{"op": "recall", "query": "item00003"}
+{"name": "report-00015.txt", "op": "document", "ref": 15, "retain_until": null, "text": "item00015 gate broken secret00015 pump repaired"}
+{"name": "report-00016.txt", "op": "document", "ref": 16, "retain_until": null, "text": "item00016 pump checked secret00016 pump reported"}
+{"op": "message", "ref": 17, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00017 crossing blocked secret00017"}
+{"op": "message", "ref": 18, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00018 streetlight replaced secret00018"}
+{"op": "message", "ref": 19, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00019 playground checked secret00019"}
+{"op": "message", "ref": 20, "retain_until": "2099-01-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-b", "text": "item00020 bench blocked secret00020"}
+{"op": "recall", "query": "crossing broken"}
+{"op": "recall", "query": "pump reported"}
+{"name": "report-00023.txt", "op": "document", "ref": 23, "retain_until": null, "text": "item00023 crossing reported secret00023 crossing checked"}
+{"op": "message", "ref": 24, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00024 gate missing secret00024"}
+{"op": "message", "ref": 25, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00025 drain replaced secret00025"}
+{"op": "delete", "reason": "entered by mistake", "refs": [25]}
+{"op": "message", "ref": 27, "retain_until": "2026-03-01T00:00:00+00:00", "session": "south-street", "speaker": "coordinator", "text": "item00027 bin leaking secret00027"}
+{"op": "message", "ref": 28, "retain_until": "2026-03-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-c", "text": "item00028 pump checked secret00028"}
+{"op": "message", "ref": 29, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00029 gate checked secret00029"}
+{"op": "message", "ref": 30, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00030 pump repaired secret00030"}
+{"op": "message", "ref": 31, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00031 drain missing secret00031"}
+{"op": "delete", "reason": "resident asked for removal", "refs": [9]}
+{"op": "message", "ref": 33, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00033 streetlight leaking secret00033"}
+{"name": "report-00034.txt", "op": "document", "ref": 34, "retain_until": null, "text": "item00034 pump missing secret00034 playground replaced"}
+{"op": "message", "ref": 35, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00035 bin repaired secret00035"}
+{"op": "message", "ref": 36, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00036 drain leaking secret00036"}
+{"op": "delete", "reason": "entered by mistake", "refs": [27, 7]}
+{"op": "message", "ref": 38, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00038 playground missing secret00038"}
+{"op": "message", "ref": 39, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00039 playground missing secret00039"}
+{"op": "message", "ref": 40, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00040 bench blocked secret00040"}
+{"op": "message", "ref": 41, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00041 crossing blocked secret00041"}
+{"op": "message", "ref": 42, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00042 pump reported secret00042"}
+{"op": "message", "ref": 43, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00043 drain leaking secret00043"}
+{"op": "message", "ref": 44, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00044 drain missing secret00044"}
+{"op": "message", "ref": 45, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00045 playground blocked secret00045"}
+{"op": "message", "ref": 46, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00046 bench broken secret00046"}
+{"op": "message", "ref": 47, "retain_until": "2026-04-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-b", "text": "item00047 playground repaired secret00047"}
+{"op": "message", "ref": 48, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00048 playground blocked secret00048"}
+{"op": "delete", "reason": "contains a private detail", "refs": [12]}
+{"op": "recall", "query": "bin missing"}
+{"op": "message", "ref": 51, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00051 bin missing secret00051"}
+{"op": "message", "ref": 52, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00052 playground repaired secret00052"}
+{"name": "report-00053.txt", "op": "document", "ref": 53, "retain_until": null, "text": "item00053 drain blocked secret00053 bin reported"}
+{"op": "message", "ref": 54, "retain_until": "2026-04-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-b", "text": "item00054 gate repaired secret00054"}
+{"op": "message", "ref": 55, "retain_until": "2026-02-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-a", "text": "item00055 streetlight repaired secret00055"}
+{"name": "report-00056.txt", "op": "document", "ref": 56, "retain_until": null, "text": "item00056 bin leaking secret00056 streetlight checked"}
+{"op": "message", "ref": 57, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00057 streetlight broken secret00057"}
+{"op": "message", "ref": 58, "retain_until": "2099-01-01T00:00:00+00:00", "session": "south-street", "speaker": "coordinator", "text": "item00058 crossing broken secret00058"}
+{"op": "recall", "query": "streetlight replaced"}
+{"op": "message", "ref": 60, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00060 gate replaced secret00060"}
+{"op": "message", "ref": 61, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00061 playground reported secret00061"}
+{"op": "message", "ref": 62, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00062 drain leaking secret00062"}
+{"op": "recall", "query": "bench checked"}
+{"op": "recall", "query": "bin replaced"}
+{"op": "message", "ref": 65, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00065 crossing missing secret00065"}
+{"op": "recall", "query": "bench repaired"}
+{"op": "message", "ref": 67, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00067 bench blocked secret00067"}
+{"op": "message", "ref": 68, "retain_until": "2026-04-01T00:00:00+00:00", "session": null, "speaker": "resident-a", "text": "item00068 drain checked secret00068"}
+{"op": "recall", "query": "item00045"}
+{"op": "message", "ref": 70, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00070 drain checked secret00070"}
+{"op": "message", "ref": 71, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00071 crossing repaired secret00071"}
+{"op": "delete", "reason": "resident asked for removal", "refs": [39]}
+{"op": "message", "ref": 73, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00073 bin reported secret00073"}
+{"op": "message", "ref": 74, "retain_until": "2026-02-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-b", "text": "item00074 crossing reported secret00074"}
+{"op": "delete", "reason": "resident asked for removal", "refs": [36]}
+{"op": "message", "ref": 76, "retain_until": "2026-03-01T00:00:00+00:00", "session": "south-street", "speaker": "coordinator", "text": "item00076 bin broken secret00076"}
+{"op": "message", "ref": 77, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00077 playground reported secret00077"}
+{"op": "message", "ref": 78, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00078 drain checked secret00078"}
+{"op": "message", "ref": 79, "retain_until": "2026-02-01T00:00:00+00:00", "session": null, "speaker": "resident-c", "text": "item00079 bin leaking secret00079"}
+{"op": "message", "ref": 80, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00080 bench checked secret00080"}
+{"name": "report-00081.txt", "op": "document", "ref": 81, "retain_until": null, "text": "item00081 crossing replaced secret00081 gate broken"}
+{"op": "message", "ref": 82, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00082 bin reported secret00082"}
+{"op": "recall", "query": "drain reported"}
+{"op": "message", "ref": 84, "retain_until": "2026-04-01T00:00:00+00:00", "session": null, "speaker": "coordinator", "text": "item00084 bench missing secret00084"}
+{"op": "message", "ref": 85, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00085 bench replaced secret00085"}
+{"op": "message", "ref": 86, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00086 gate broken secret00086"}
+{"op": "message", "ref": 87, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00087 bin checked secret00087"}
+{"op": "message", "ref": 88, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00088 playground broken secret00088"}
+{"op": "message", "ref": 89, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00089 streetlight blocked secret00089"}
+{"op": "delete", "reason": "entered by mistake", "refs": [24]}
+{"op": "message", "ref": 91, "retain_until": "2099-01-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-a", "text": "item00091 bin checked secret00091"}
+{"op": "message", "ref": 92, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00092 gate leaking secret00092"}
+{"op": "message", "ref": 93, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00093 drain missing secret00093"}
+{"op": "message", "ref": 94, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00094 streetlight missing secret00094"}
+{"op": "message", "ref": 95, "retain_until": "2026-03-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-b", "text": "item00095 gate blocked secret00095"}
+{"op": "message", "ref": 96, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00096 playground broken secret00096"}
+{"op": "recall", "query": "drain replaced"}
+{"op": "recall", "query": "item00088"}
+{"op": "delete", "reason": "entered by mistake", "refs": [8, 61]}
+{"op": "message", "ref": 100, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00100 gate blocked secret00100"}
+{"op": "recall", "query": "item00013"}
+{"op": "delete", "reason": "entered by mistake", "refs": [76]}
+{"op": "message", "ref": 103, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00103 drain repaired secret00103"}
+{"op": "message", "ref": 104, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00104 drain broken secret00104"}
+{"op": "recall", "query": "item00030"}
+{"op": "message", "ref": 106, "retain_until": "2026-04-01T00:00:00+00:00", "session": null, "speaker": "resident-a", "text": "item00106 gate reported secret00106"}
+{"op": "delete", "reason": "contains a private detail", "refs": [85]}
+{"op": "message", "ref": 108, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00108 bin leaking secret00108"}
+{"op": "message", "ref": 109, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00109 bench checked secret00109"}
+{"op": "message", "ref": 110, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00110 playground broken secret00110"}
+{"op": "message", "ref": 111, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00111 bench replaced secret00111"}
+{"op": "message", "ref": 112, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00112 bin blocked secret00112"}
+{"op": "message", "ref": 113, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00113 bench checked secret00113"}
+{"op": "message", "ref": 114, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00114 bin repaired secret00114"}
+{"name": "report-00115.txt", "op": "document", "ref": 115, "retain_until": null, "text": "item00115 playground blocked secret00115 streetlight leaking"}
+{"op": "message", "ref": 116, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00116 crossing missing secret00116"}
+{"op": "message", "ref": 117, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00117 pump checked secret00117"}
+{"name": "report-00118.txt", "op": "document", "ref": 118, "retain_until": null, "text": "item00118 playground checked secret00118 bench missing"}
+{"op": "recall", "query": "item00057"}
+{"as_of": "2026-02-01T00:00:00+00:00", "op": "expire"}
+{"op": "message", "ref": 121, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00121 streetlight repaired secret00121"}
+{"op": "recall", "query": "item00089"}
+{"op": "message", "ref": 123, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00123 crossing reported secret00123"}
+{"op": "message", "ref": 124, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00124 bin leaking secret00124"}
+{"op": "message", "ref": 125, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00125 playground checked secret00125"}
+{"op": "delete", "reason": "entered by mistake", "refs": [33]}
+{"op": "message", "ref": 127, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00127 drain checked secret00127"}
+{"op": "delete", "reason": "resident asked for removal", "refs": [58]}
+{"op": "message", "ref": 129, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00129 gate checked secret00129"}
+{"name": "report-00130.txt", "op": "document", "ref": 130, "retain_until": null, "text": "item00130 pump missing secret00130 bin leaking"}
+{"op": "delete", "reason": "contains a private detail", "refs": [57, 113]}
+{"op": "message", "ref": 132, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00132 drain broken secret00132"}
+{"name": "report-00133.txt", "op": "document", "ref": 133, "retain_until": "2099-01-01T00:00:00+00:00", "text": "item00133 bench reported secret00133 drain leaking"}
+{"op": "message", "ref": 134, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00134 streetlight broken secret00134"}
+{"op": "message", "ref": 135, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00135 playground blocked secret00135"}
+{"name": "report-00136.txt", "op": "document", "ref": 136, "retain_until": null, "text": "item00136 streetlight checked secret00136 playground blocked"}
+{"op": "message", "ref": 137, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00137 pump blocked secret00137"}
+{"op": "recall", "query": "drain replaced"}
+{"op": "recall", "query": "streetlight reported"}
+{"op": "message", "ref": 140, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00140 pump broken secret00140"}
+{"op": "message", "ref": 141, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00141 crossing broken secret00141"}
+{"op": "recall", "query": "streetlight leaking"}
+{"op": "message", "ref": 143, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00143 gate replaced secret00143"}
+{"op": "message", "ref": 144, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00144 bin repaired secret00144"}
+{"op": "message", "ref": 145, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00145 crossing checked secret00145"}
+{"op": "message", "ref": 146, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00146 playground checked secret00146"}
+{"op": "message", "ref": 147, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00147 pump missing secret00147"}
+{"op": "delete", "reason": "contains a private detail", "refs": [89]}
+{"op": "message", "ref": 149, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00149 bench broken secret00149"}
+{"op": "message", "ref": 150, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00150 pump missing secret00150"}
+{"op": "recall", "query": "bench broken"}
+{"op": "message", "ref": 152, "retain_until": "2026-03-01T00:00:00+00:00", "session": null, "speaker": "resident-a", "text": "item00152 crossing checked secret00152"}
+{"op": "message", "ref": 153, "retain_until": "2026-02-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-c", "text": "item00153 drain replaced secret00153"}
+{"name": "report-00154.txt", "op": "document", "ref": 154, "retain_until": null, "text": "item00154 bench leaking secret00154 pump reported"}
+{"op": "recall", "query": "item00062"}
+{"op": "message", "ref": 156, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00156 crossing missing secret00156"}
+{"op": "delete", "reason": "resident asked for removal", "refs": [36]}
+{"op": "message", "ref": 158, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00158 bin repaired secret00158"}
+{"op": "recall", "query": "drain blocked"}
+{"op": "message", "ref": 160, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00160 bench broken secret00160"}
+{"op": "recall", "query": "playground replaced"}
+{"op": "recall", "query": "item00071"}
+{"op": "message", "ref": 163, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00163 drain replaced secret00163"}
+{"op": "message", "ref": 164, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00164 bench reported secret00164"}
+{"op": "recall", "query": "bin broken"}
+{"op": "message", "ref": 166, "retain_until": "2026-03-01T00:00:00+00:00", "session": "north-street", "speaker": "coordinator", "text": "item00166 playground missing secret00166"}
+{"op": "message", "ref": 167, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00167 bench missing secret00167"}
+{"name": "report-00168.txt", "op": "document", "ref": 168, "retain_until": null, "text": "item00168 pump reported secret00168 crossing missing"}
+{"op": "delete", "reason": "entered by mistake", "refs": [80]}
+{"name": "report-00170.txt", "op": "document", "ref": 170, "retain_until": "2099-01-01T00:00:00+00:00", "text": "item00170 streetlight broken secret00170 drain repaired"}
+{"op": "recall", "query": "streetlight replaced"}
+{"op": "recall", "query": "bin reported"}
+{"op": "message", "ref": 173, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00173 streetlight checked secret00173"}
+{"op": "message", "ref": 174, "retain_until": "2026-04-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-c", "text": "item00174 crossing missing secret00174"}
+{"op": "message", "ref": 175, "retain_until": "2026-04-01T00:00:00+00:00", "session": null, "speaker": "coordinator", "text": "item00175 crossing blocked secret00175"}
+{"op": "message", "ref": 176, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00176 gate broken secret00176"}
+{"op": "message", "ref": 177, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00177 pump checked secret00177"}
+{"op": "recall", "query": "item00077"}
+{"op": "message", "ref": 179, "retain_until": "2099-01-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-b", "text": "item00179 bench leaking secret00179"}
+{"op": "message", "ref": 180, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00180 pump missing secret00180"}
+{"op": "message", "ref": 181, "retain_until": "2099-01-01T00:00:00+00:00", "session": null, "speaker": "coordinator", "text": "item00181 playground reported secret00181"}
+{"op": "message", "ref": 182, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00182 crossing reported secret00182"}
+{"op": "message", "ref": 183, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00183 drain leaking secret00183"}
+{"op": "recall", "query": "item00181"}
+{"op": "message", "ref": 185, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00185 gate broken secret00185"}
+{"op": "message", "ref": 186, "retain_until": "2099-01-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-a", "text": "item00186 playground blocked secret00186"}
+{"op": "message", "ref": 187, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00187 crossing leaking secret00187"}
+{"name": "report-00188.txt", "op": "document", "ref": 188, "retain_until": null, "text": "item00188 playground blocked secret00188 bin replaced"}
+{"op": "message", "ref": 189, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00189 bin blocked secret00189"}
+{"op": "recall", "query": "item00052"}
+{"op": "message", "ref": 191, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00191 bin repaired secret00191"}
+{"op": "recall", "query": "item00141"}
+{"op": "delete", "reason": "entered by mistake", "refs": [76, 111]}
+{"op": "recall", "query": "item00117"}
+{"as_of": "2026-03-01T00:00:00+00:00", "op": "expire"}
+{"op": "message", "ref": 196, "retain_until": "2026-02-01T00:00:00+00:00", "session": "south-street", "speaker": "coordinator", "text": "item00196 streetlight blocked secret00196"}
+{"op": "recall", "query": "item00108"}
+{"op": "message", "ref": 198, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00198 playground missing secret00198"}
+{"op": "message", "ref": 199, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00199 pump missing secret00199"}
+{"op": "message", "ref": 200, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00200 bench blocked secret00200"}
+{"op": "delete", "reason": "contains a private detail", "refs": [167]}
+{"op": "message", "ref": 202, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00202 drain broken secret00202"}
+{"op": "message", "ref": 203, "retain_until": "2026-03-01T00:00:00+00:00", "session": "north-street", "speaker": "coordinator", "text": "item00203 drain broken secret00203"}
+{"op": "message", "ref": 204, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00204 pump leaking secret00204"}
+{"name": "report-00205.txt", "op": "document", "ref": 205, "retain_until": "2026-03-01T00:00:00+00:00", "text": "item00205 crossing reported secret00205 bench repaired"}
+{"name": "report-00206.txt", "op": "document", "ref": 206, "retain_until": null, "text": "item00206 bench checked secret00206 bin checked"}
+{"op": "message", "ref": 207, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00207 bin missing secret00207"}
+{"op": "message", "ref": 208, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00208 bench replaced secret00208"}
+{"name": "report-00209.txt", "op": "document", "ref": 209, "retain_until": "2026-02-01T00:00:00+00:00", "text": "item00209 bin checked secret00209 bin reported"}
+{"op": "message", "ref": 210, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00210 bin broken secret00210"}
+{"op": "recall", "query": "item00006"}
+{"name": "report-00212.txt", "op": "document", "ref": 212, "retain_until": null, "text": "item00212 playground broken secret00212 playground blocked"}
+{"op": "recall", "query": "bin replaced"}
+{"op": "message", "ref": 214, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00214 pump reported secret00214"}
+{"op": "message", "ref": 215, "retain_until": null, "session": "north-street", "speaker": "resident-c", "text": "item00215 bin missing secret00215"}
+{"op": "message", "ref": 216, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00216 pump repaired secret00216"}
+{"op": "message", "ref": 217, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00217 drain replaced secret00217"}
+{"op": "recall", "query": "playground blocked"}
+{"op": "recall", "query": "item00117"}
+{"op": "message", "ref": 220, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00220 crossing broken secret00220"}
+{"op": "delete", "reason": "contains a private detail", "refs": [166]}
+{"op": "delete", "reason": "contains a private detail", "refs": [163]}
+{"op": "message", "ref": 223, "retain_until": "2026-04-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-c", "text": "item00223 crossing repaired secret00223"}
+{"op": "message", "ref": 224, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00224 gate blocked secret00224"}
+{"op": "message", "ref": 225, "retain_until": "2099-01-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-b", "text": "item00225 crossing missing secret00225"}
+{"op": "message", "ref": 226, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00226 drain broken secret00226"}
+{"op": "message", "ref": 227, "retain_until": null, "session": "south-street", "speaker": "resident-a", "text": "item00227 streetlight replaced secret00227"}
+{"op": "message", "ref": 228, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00228 pump blocked secret00228"}
+{"op": "message", "ref": 229, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00229 crossing checked secret00229"}
+{"op": "message", "ref": 230, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00230 drain leaking secret00230"}
+{"op": "message", "ref": 231, "retain_until": "2026-02-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-c", "text": "item00231 playground missing secret00231"}
+{"op": "recall", "query": "pump missing"}
+{"op": "message", "ref": 233, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00233 bench leaking secret00233"}
+{"op": "message", "ref": 234, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00234 drain blocked secret00234"}
+{"op": "recall", "query": "bench checked"}
+{"op": "message", "ref": 236, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00236 crossing reported secret00236"}
+{"op": "recall", "query": "playground missing"}
+{"op": "message", "ref": 238, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00238 bin replaced secret00238"}
+{"op": "recall", "query": "bench broken"}
+{"name": "report-00240.txt", "op": "document", "ref": 240, "retain_until": null, "text": "item00240 gate missing secret00240 streetlight replaced"}
+{"op": "delete", "reason": "resident asked for removal", "refs": [134]}
+{"op": "delete", "reason": "entered by mistake", "refs": [33, 225]}
+{"op": "recall", "query": "gate reported"}
+{"op": "message", "ref": 244, "retain_until": null, "session": "north-street", "speaker": "resident-b", "text": "item00244 gate broken secret00244"}
+{"op": "message", "ref": 245, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00245 pump replaced secret00245"}
+{"op": "message", "ref": 246, "retain_until": "2026-04-01T00:00:00+00:00", "session": null, "speaker": "resident-a", "text": "item00246 bench replaced secret00246"}
+{"op": "message", "ref": 247, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00247 pump replaced secret00247"}
+{"op": "delete", "reason": "contains a private detail", "refs": [45, 96]}
+{"op": "message", "ref": 249, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00249 playground blocked secret00249"}
+{"op": "recall", "query": "item00146"}
+{"op": "message", "ref": 251, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00251 gate reported secret00251"}
+{"name": "report-00252.txt", "op": "document", "ref": 252, "retain_until": null, "text": "item00252 drain broken secret00252 playground checked"}
+{"op": "message", "ref": 253, "retain_until": "2026-04-01T00:00:00+00:00", "session": "south-street", "speaker": "resident-c", "text": "item00253 streetlight reported secret00253"}
+{"op": "message", "ref": 254, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00254 streetlight missing secret00254"}
+{"name": "report-00255.txt", "op": "document", "ref": 255, "retain_until": null, "text": "item00255 bench missing secret00255 crossing checked"}
+{"op": "recall", "query": "item00191"}
+{"op": "message", "ref": 257, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00257 playground blocked secret00257"}
+{"op": "delete", "reason": "contains a private detail", "refs": [179, 209]}
+{"op": "delete", "reason": "contains a private detail", "refs": [202]}
+{"op": "message", "ref": 260, "retain_until": "2099-01-01T00:00:00+00:00", "session": null, "speaker": "resident-a", "text": "item00260 pump leaking secret00260"}
+{"op": "message", "ref": 261, "retain_until": "2026-03-01T00:00:00+00:00", "session": null, "speaker": "resident-b", "text": "item00261 bin reported secret00261"}
+{"op": "message", "ref": 262, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00262 drain leaking secret00262"}
+{"op": "message", "ref": 263, "retain_until": null, "session": null, "speaker": "resident-c", "text": "item00263 playground repaired secret00263"}
+{"op": "recall", "query": "crossing broken"}
+{"op": "message", "ref": 265, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00265 gate blocked secret00265"}
+{"op": "recall", "query": "item00113"}
+{"op": "delete", "reason": "entered by mistake", "refs": [70]}
+{"op": "message", "ref": 268, "retain_until": null, "session": "south-street", "speaker": "resident-c", "text": "item00268 drain leaking secret00268"}
+{"op": "recall", "query": "playground missing"}
+{"as_of": "2026-04-01T00:00:00+00:00", "op": "expire"}
+{"op": "message", "ref": 271, "retain_until": "2099-01-01T00:00:00+00:00", "session": "north-street", "speaker": "coordinator", "text": "item00271 bin repaired secret00271"}
+{"op": "delete", "reason": "entered by mistake", "refs": [25]}
+{"op": "recall", "query": "streetlight repaired"}
+{"op": "delete", "reason": "resident asked for removal", "refs": [223]}
+{"op": "message", "ref": 275, "retain_until": null, "session": "south-street", "speaker": "coordinator", "text": "item00275 crossing broken secret00275"}
+{"op": "message", "ref": 276, "retain_until": null, "session": "south-street", "speaker": "resident-b", "text": "item00276 streetlight missing secret00276"}
+{"op": "recall", "query": "streetlight replaced"}
+{"op": "recall", "query": "pump replaced"}
+{"op": "message", "ref": 279, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00279 bench repaired secret00279"}
+{"op": "message", "ref": 280, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00280 crossing reported secret00280"}
+{"op": "message", "ref": 281, "retain_until": null, "session": null, "speaker": "resident-a", "text": "item00281 streetlight reported secret00281"}
+{"op": "message", "ref": 282, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00282 drain reported secret00282"}
+{"op": "recall", "query": "item00071"}
+{"op": "delete", "reason": "entered by mistake", "refs": [217]}
+{"op": "message", "ref": 285, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00285 crossing blocked secret00285"}
+{"op": "recall", "query": "playground missing"}
+{"op": "message", "ref": 287, "retain_until": null, "session": null, "speaker": "coordinator", "text": "item00287 pump missing secret00287"}
+{"op": "delete", "reason": "contains a private detail", "refs": [29, 133]}
+{"op": "message", "ref": 289, "retain_until": "2026-04-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-b", "text": "item00289 gate missing secret00289"}
+{"op": "message", "ref": 290, "retain_until": null, "session": "north-street", "speaker": "resident-a", "text": "item00290 drain checked secret00290"}
+{"op": "recall", "query": "gate replaced"}
+{"op": "recall", "query": "drain repaired"}
+{"op": "message", "ref": 293, "retain_until": "2026-04-01T00:00:00+00:00", "session": "north-street", "speaker": "coordinator", "text": "item00293 drain repaired secret00293"}
+{"op": "message", "ref": 294, "retain_until": null, "session": "north-street", "speaker": "coordinator", "text": "item00294 gate repaired secret00294"}
+{"op": "message", "ref": 295, "retain_until": null, "session": null, "speaker": "resident-b", "text": "item00295 gate repaired secret00295"}
+{"op": "message", "ref": 296, "retain_until": "2026-03-01T00:00:00+00:00", "session": "north-street", "speaker": "resident-c", "text": "item00296 pump checked secret00296"}
+{"op": "recall", "query": "streetlight leaking"}
+{"op": "recall", "query": "item00209"}
+{"op": "message", "ref": 299, "retain_until": "2026-04-01T00:00:00+00:00", "session": null, "speaker": "resident-c", "text": "item00299 streetlight blocked secret00299"}

@@ -87,6 +87,16 @@ deletion all work. Only the AI chat is disabled.
 
 More in [limitations](https://docs.humem.ai/audit-ready-memory/latest/guide/limitations/).
 
+## Benchmarks
+
+```bash
+uv run python -m benchmarks.run
+```
+
+Checks consistency, replay, retention, and deletion on a documented input with a documented
+output, and can time the everyday operations. See
+[benchmarks](https://docs.humem.ai/audit-ready-memory/latest/guide/benchmarks/).
+
 ## Documentation
 
 <https://docs.humem.ai/audit-ready-memory/latest/>

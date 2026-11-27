@@ -40,6 +40,9 @@ include = ["audit_ready_memory*"]
 version_scheme = "guess-next-dev"
 local_scheme = "no-local-version"
 
+[tool.pytest.ini_options]
+pythonpath = ["."]  # so that tests can import the benchmarks
+
 [dependency-groups]
 dev = [
     "pytest>=9.0.3",

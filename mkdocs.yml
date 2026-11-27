@@ -98,6 +98,7 @@ nav:
       - Memory Model: guide/memory-model.md
       - Retention and Deletion: guide/retention-and-deletion.md
       - Limitations: guide/limitations.md
+      - Benchmarks: guide/benchmarks.md
   - Reference:
       - API: reference/api.md
   - Development:

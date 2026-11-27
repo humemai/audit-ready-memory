@@ -1,0 +1,69 @@
+{
+  "operations": 300,
+  "events": 300,
+  "visible_messages": 130,
+  "visible_documents": 21,
+  "deleted_items": 60,
+  "checkpoints": [
+    {
+      "after_operation": 25,
+      "last_seq": 24,
+      "digest": "aa9d9790b1af5af0bbddbe22584b843c2db86558f53da26f0a5f2a8fb38e30e2"
+    },
+    {
+      "after_operation": 50,
+      "last_seq": 49,
+      "digest": "60d3b56a5faedc78f6da1a0394d51455a24b829ea37b723cfdb782bd48e4a1ca"
+    },
+    {
+      "after_operation": 75,
+      "last_seq": 74,
+      "digest": "51c17f30274f2bd5c98b3125d356457daa366d449fffb32adddbca3826b427ba"
+    },
+    {
+      "after_operation": 100,
+      "last_seq": 99,
+      "digest": "336c39c1a19d01db7617aa1048fecd8b2d537bb2b350ed371e4fc7292f8af73a"
+    },
+    {
+      "after_operation": 125,
+      "last_seq": 124,
+      "digest": "6c9ff06ea0ca52a4d4c3076b54862855f2f76cd2d428ff50632573fe8995d8b2"
+    },
+    {
+      "after_operation": 150,
+      "last_seq": 149,
+      "digest": "f1ff9d4f171600e16866164acb2a72dcfc8d1878936bb5a722b878c025ea4c95"
+    },
+    {
+      "after_operation": 175,
+      "last_seq": 174,
+      "digest": "ef7af534a90c3a5f56e4004d8a2fc8fc03bc72e8e129ed84f18afe69412845ad"
+    },
+    {
+      "after_operation": 200,
+      "last_seq": 199,
+      "digest": "96189d40f99a3d72cae82bd34bf66d083ffbae768352bfad8b1e3b6a7ef1b462"
+    },
+    {
+      "after_operation": 225,
+      "last_seq": 224,
+      "digest": "2673d4421a25628049c4a534b45eed1db31897d1615aff7ed8fd3c95711be6cb"
+    },
+    {
+      "after_operation": 250,
+      "last_seq": 249,
+      "digest": "7068d7bddd1543f16d3d404dc3d3fc7d3495e9fff12b86df73031e752aca665d"
+    },
+    {
+      "after_operation": 275,
+      "last_seq": 274,
+      "digest": "fdb07a706fe784d92876bcdf8a533f9961a0c95554f3830936d60e610ff03e8f"
+    },
+    {
+      "after_operation": 300,
+      "last_seq": 299,
+      "digest": "489579b8f61d21046e6408ba00aa833ca69d607e16718b082de61e9c85aac754"
+    }
+  ]
+}
