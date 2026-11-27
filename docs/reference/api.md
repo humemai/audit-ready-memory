@@ -26,6 +26,8 @@ manager, or call `close()` yourself.
 | `record_recall(recall)` | the stored `Recall` | Every id in `recalled` must be an existing message or document |
 | `delete(targets, reason, *, requested_by=None, session_id=None)` | the stored `Deletion` | `targets` must all be existing messages or documents |
 
+| `expire(*, as_of=None, requested_by=None, session_id=None)` | a `Deletion` or `None` | Deletes everything past its `retain_until`. `as_of` may not be in the future |
+
 Passing an event that already has a `seq` raises `ValueError`. An event belongs to the log
 once, and cannot be re-appended.
 
@@ -36,7 +38,7 @@ recall(query, *, limit=5, session_id=None, source="unknown", actor=None)
     -> tuple[Recall, list[Message | Document]]
 ```
 
-Searches visible memory and appends a `Recall` naming exactly what it returned. Prefer this
+Searches visible, unexpired memory and appends a `Recall` naming exactly what it returned. Prefer this
 over calling `search()` and `record_recall()` separately: it is the reason the audit record
 cannot drift from what was actually retrieved.
 
@@ -81,6 +83,9 @@ A frozen snapshot produced by `replay()`.
 
 `is_deleted(event_id) -> bool` is the readable form of `event_id in state.deleted`.
 
+`expired(as_of)` returns the visible messages and documents whose `retain_until` is at or before
+`as_of`, in log order. `as_of` must carry a timezone.
+
 `RecallStats` has `num_recalled: int` and `last_recalled_at: datetime | None`.
 
 ## `replay`
@@ -96,12 +101,12 @@ is deliberate: silently replaying a shuffled log would produce a state nobody ca
 ## `search`
 
 ```python
-search(state: MemoryState, query: str, *, limit=5) -> list[Message | Document]
+search(state: MemoryState, query: str, *, limit=5, as_of=None) -> list[Message | Document]
 ```
 
 Lowercase word-overlap between the query and each visible message or document, ranked by
 overlap count then log order. Deterministic, and blind to deleted content. An empty or
-punctuation-only query returns nothing.
+punctuation-only query returns nothing. With `as_of`, content expired by then is left out.
 
 ## Events
 

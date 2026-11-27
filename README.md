@@ -48,6 +48,7 @@ gives the log a total order that does not depend on the clock.
 | Rebuild any past state | `memory.replay(up_to_seq=n)`, a pure fold over the log |
 | See what the model saw | every read appends a `Recall` event naming the exact items |
 | Delete with a reason | `memory.delete(ids, reason="...")` appends a tombstone |
+| Retention | set `retain_until`; recalls skip expired content and `memory.expire()` records it |
 | Run it anywhere | embedded database, no server, no network |
 
 ## Four kinds of event
@@ -77,8 +78,8 @@ deletion all work. Only the AI chat is disabled.
 
 - **Deletion is a tombstone, not erasure.** Deleted content stays in the append-only log and
   is excluded from every read. If you need the bytes gone from disk, this is not that.
-- **`retain_until` is a marker, not a policy.** The field is recorded but nothing enforces it
-  yet; an expired event is still visible. Track it or set it, but do not rely on it.
+- **Expiry is recorded only when you ask.** Recalls skip content past its `retain_until`, but
+  the deletion is written when you call `memory.expire()`. Nothing schedules that call.
 - **Retrieval is keyword overlap.** Deliberately simple and deterministic. No embeddings.
 - **The demo's model call is a cloud call.** The memory is local; recalled text sent to
   OpenRouter is not.

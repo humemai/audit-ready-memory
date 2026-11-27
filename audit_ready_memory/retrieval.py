@@ -9,6 +9,7 @@ deterministic: overlap count descending, then log order (``seq``).
 from __future__ import annotations
 
 import re
+from datetime import datetime
 
 from .events import Document, Message
 from .replay import MemoryState
@@ -28,13 +29,26 @@ def _searchable_text(event: ContentEvent) -> str:
     return f"{event.name} {event.text}"
 
 
-def search(state: MemoryState, query: str, *, limit: int = 5) -> list[ContentEvent]:
-    """Return up to ``limit`` visible content events matching ``query``."""
+def search(
+    state: MemoryState,
+    query: str,
+    *,
+    limit: int = 5,
+    as_of: datetime | None = None,
+) -> list[ContentEvent]:
+    """Return up to ``limit`` visible content events matching ``query``.
+
+    With ``as_of``, content whose retention has run out by then is left out.
+    Without it, only deletion hides content.
+    """
     query_tokens = _tokens(query)
     if not query_tokens:
         return []
+    expired = {item.id for item in state.expired(as_of)} if as_of else set()
     scored: list[tuple[int, ContentEvent]] = []
     for event in (*state.visible_messages, *state.visible_documents):
+        if event.id in expired:
+            continue
         overlap = len(query_tokens & _tokens(_searchable_text(event)))
         if overlap:
             scored.append((overlap, event))

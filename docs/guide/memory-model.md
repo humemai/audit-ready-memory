@@ -32,7 +32,7 @@ One conversational turn.
 |---|---|
 | `speaker` | Required, non-empty |
 | `content` | Required, non-empty |
-| `retain_until` | Optional marker. **Not enforced**. See [retention and deletion](retention-and-deletion.md) |
+| `retain_until` | Optional. Recalls skip the item from this moment. See [retention and deletion](retention-and-deletion.md) |
 
 ### `Document`
 
@@ -44,7 +44,7 @@ Data someone brought.
 | `text` | Required, non-empty. Extracted plain text |
 | `media_type` | Defaults to `text/plain` |
 | `sha256` | Optional digest of the original bytes |
-| `retain_until` | Optional marker. Not enforced |
+| `retain_until` | Optional. Same rule as for messages |
 
 Documents hold extracted text, not the original file. The digest is the link back to the
 bytes if you keep them elsewhere.
