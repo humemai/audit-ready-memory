@@ -1,0 +1,62 @@
+# Spike: can GraalVM Web Image (Java to WebAssembly) do what an embedded database needs? Not for merging.
+name: Web Image spike
+
+on:
+  push:
+    branches: [spike/web-image]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GRAALVM_URL: https://gds.oracle.com/download/graal/25i6/archive/graalvm-jdk-25i6-25.0.5.1_linux-x64_bin.tar.gz
+      BINARYEN_URL: https://github.com/WebAssembly/binaryen/releases/download/version_119/binaryen-version_119-x86_64-linux.tar.gz
+      BINARYEN_SHA256: 716bcf9f5f36a6f466239fbb09a925eeaf54c46411ccefac979ec649e7c06d2d
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Download Oracle GraalVM and Binaryen
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          curl -fsSL --retry 3 -o graalvm.tar.gz "$GRAALVM_URL"
+          curl -fsSL --retry 3 -o binaryen.tar.gz "$BINARYEN_URL"
+          sha256sum graalvm.tar.gz
+          echo "$BINARYEN_SHA256  binaryen.tar.gz" | sha256sum -c -
+          mkdir graalvm binaryen
+          tar -xzf graalvm.tar.gz -C graalvm --strip-components=1
+          tar -xzf binaryen.tar.gz -C binaryen --strip-components=1
+          grep -E '^(IMPLEMENTOR|GRAALVM_VERSION|JAVA_VERSION)=' graalvm/release
+          echo "$RUNNER_TEMP/graalvm/bin" >> "$GITHUB_PATH"
+          echo "$RUNNER_TEMP/binaryen/bin" >> "$GITHUB_PATH"
+
+      - name: Compile to WebAssembly
+        working-directory: spikes/web-image
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          javac -d out/classes Probe.java
+          native-image --tool:svm-wasm -cp out/classes -o out/probe Probe
+          ls -l out
+
+      - name: Run on the JVM, as the baseline
+        working-directory: spikes/web-image
+        run: timeout 120 java -cp out/classes Probe
+
+      - name: Run the WebAssembly build in Node
+        working-directory: spikes/web-image/out
+        run: |
+          node --version
+          timeout 120 node probe.js || echo "node exit code $?"
+
+      - name: Keep the build for a browser run
+        uses: actions/upload-artifact@v4
+        with:
+          name: probe-web
+          path: spikes/web-image/out/probe*
+          retention-days: 7
