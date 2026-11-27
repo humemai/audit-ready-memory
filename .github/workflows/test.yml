@@ -40,3 +40,45 @@ jobs:
 
       - name: Run tests
         run: uv run pytest
+
+  demo-image:
+    name: hosted demo image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Build the image
+        run: docker build -t demo .
+
+      - name: It refuses to start without sign-in settings
+        run: |
+          if docker run --rm demo; then
+            echo "the image started without sign-in settings" >&2
+            exit 1
+          fi
+
+      - name: It serves the app as a normal user
+        run: |
+          set -euo pipefail
+          # made-up values: nothing here signs anyone in
+          docker run -d --name demo -p 8501:8501 \
+            -e ARM_AUTH_REDIRECT_URI=http://localhost:8501/oauth2callback \
+            -e ARM_AUTH_COOKIE_SECRET=ci-only-not-a-secret \
+            -e ARM_AUTH_GOOGLE_CLIENT_ID=ci-only-client \
+            -e ARM_AUTH_GOOGLE_CLIENT_SECRET=ci-only-not-a-secret \
+            demo
+          curl -fsS --retry 30 --retry-delay 2 --retry-all-errors http://localhost:8501/_stcore/health
+          echo
+          uid=$(docker exec demo awk '/^Uid:/{print $2}' /proc/1/status)
+          echo "the app runs as uid $uid"
+          test "$uid" = 10001
+          # open the database engine inside the image, as the app does
+          docker exec -u 10001 demo /app/.venv/bin/python -c \
+            "from audit_ready_memory import Memory, Message; m = Memory('/data/ci-check'); m.add_message(Message(speaker='ci', content='ok')); print(len(m)); m.close()"
+
+      - name: Show the log
+        if: always()
+        run: docker logs demo || true
