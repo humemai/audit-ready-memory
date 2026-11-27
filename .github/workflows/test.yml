@@ -38,8 +38,8 @@ jobs:
       - name: Install dependencies
         run: uv sync --locked --all-extras
 
-      - name: Run tests
-        run: uv run pytest
+      - name: Tests, benchmark set, and examples
+        run: bash scripts/verify.sh
 
   demo-image:
     name: hosted demo image

@@ -21,6 +21,16 @@ the assistant on. The recalled text is then sent to OpenRouter.
 3. On **Replay and delete**, remove an item with a reason, then move the replay slider back.
 4. On the same tab, record the removal of expired items, and find that deletion on **Audit log**.
 
+## What it looks like
+
+![The chat view with the neighbourhood example. The pump house code is marked as past its keep time and no longer recalled.](../images/demo/chat.jpg)
+
+![The audit log: a table of eight events with their number, kind, time, and summary. The last one is a recall for "pump" that read four items.](../images/demo/audit-log.jpg)
+
+![The Why view for one message: it was read by event 7. A graph shows the recall linked to the four items it read, and the messages linked in order.](../images/demo/why.jpg)
+
+![The replay view: a slider over the log and the items visible at the chosen point, followed by the keep-time section.](../images/demo/replay.jpg)
+
 ## Host it
 
 The `Dockerfile` builds the hosted version. It needs a disk mounted for the memories and these

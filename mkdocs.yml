@@ -66,7 +66,14 @@ markdown_extensions:
       anchor_linenums: true
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.snippets:
+      base_path: [.]
+      check_paths: true
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
@@ -90,16 +97,23 @@ extra_css:
 
 nav:
   - Home: index.md
+  - In one page: summary.md
   - Getting Started:
       - Installation: getting-started/installation.md
       - Quick Start: getting-started/quickstart.md
   - Guide:
-      - Design Goals: guide/design-goals.md
+      - Walkthroughs: guide/walkthroughs.md
+      - Demo: guide/demo.md
       - Memory Model: guide/memory-model.md
       - Retention and Deletion: guide/retention-and-deletion.md
+      - Privacy and Data Flow: guide/privacy-and-data-flow.md
       - Limitations: guide/limitations.md
+      - Adoption Guide: guide/adoption.md
+      - Templates: guide/templates.md
+      - Questions: guide/faq.md
       - Benchmarks: guide/benchmarks.md
-      - Demo: guide/demo.md
+      - Design Goals: guide/design-goals.md
+      - Reuse and Citation: guide/reuse.md
   - Reference:
       - API: reference/api.md
   - Development:

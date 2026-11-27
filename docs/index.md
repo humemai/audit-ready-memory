@@ -12,6 +12,9 @@ Funded by [SIDN Fund](https://www.sidnfonds.nl/).
 
 ## Start here
 
+- [In one page](summary.md), without technical terms
+- [Walkthroughs](guide/walkthroughs.md) of a removal request and of looking back
+- [Demo](guide/demo.md)
 - [Installation](getting-started/installation.md)
 - [Quick Start](getting-started/quickstart.md) builds a log, replays it, and deletes from it
 - [Memory Model](guide/memory-model.md) covers the four event kinds and the invariants

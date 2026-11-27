@@ -1,0 +1,31 @@
+name: Feedback (no technical knowledge needed)
+description: Tell me how it went, what was unclear, or what you would need.
+title: "Feedback: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for trying it. Every answer helps, short ones too.
+        This page is public: please leave out personal or confidential information. To write privately, mail info@humem.ai.
+  - type: textarea
+    id: tried
+    attributes:
+      label: What did you try?
+      placeholder: For example the demo, a walkthrough, or the documentation.
+    validations:
+      required: true
+  - type: textarea
+    id: unclear
+    attributes:
+      label: What was unclear or did not work?
+  - type: textarea
+    id: need
+    attributes:
+      label: What would you need before using something like this?
+      placeholder: Especially about checking what was used, removing data, and how long things are kept.
+  - type: input
+    id: role
+    attributes:
+      label: What kind of work do you do? (optional)
+      placeholder: For example public organisation, community group, research, software.
