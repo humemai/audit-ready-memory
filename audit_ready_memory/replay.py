@@ -84,7 +84,9 @@ def replay(events: Iterable[ConcreteEvent]) -> MemoryState:
                 )
         elif isinstance(event, Deletion):
             for target in event.targets:
-                deleted[target] = event
+                # The first deletion is the one that removed the item; a later
+                # one stays in the log but changes nothing.
+                deleted.setdefault(target, event)
 
     return MemoryState(
         messages=tuple(messages),

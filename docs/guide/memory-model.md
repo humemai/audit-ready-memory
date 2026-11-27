@@ -96,7 +96,7 @@ These are enforced in code and asserted in the test suite:
 |---|---|
 | `messages`, `documents` | Everything ever written, in log order |
 | `visible_messages`, `visible_documents` | The same, minus deleted |
-| `deleted` | Map of deleted id to the `Deletion` that did it |
+| `deleted` | Map of deleted id to the first `Deletion` that removed it. Deleting it again adds to the log but does not change this |
 | `recall_stats` | Per item: how often it was recalled and when last |
 | `last_seq` | The point in the log this state corresponds to |
 

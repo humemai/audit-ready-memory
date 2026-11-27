@@ -75,7 +75,7 @@ A frozen snapshot produced by `replay()`.
 | `documents` | `tuple[Document, ...]` | All, in log order |
 | `visible_messages` | `tuple[Message, ...]` | Property. Excludes deleted |
 | `visible_documents` | `tuple[Document, ...]` | Property. Excludes deleted |
-| `deleted` | `Mapping[UUID, Deletion]` | Deleted id to the tombstone that did it |
+| `deleted` | `Mapping[UUID, Deletion]` | Deleted id to the first tombstone that removed it |
 | `recall_stats` | `Mapping[UUID, RecallStats]` | Derived from `Recall` events |
 | `last_seq` | `int \| None` | The log position this state reflects |
 
