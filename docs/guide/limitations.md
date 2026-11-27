@@ -61,5 +61,5 @@ OpenRouter, so recalled text leaves the machine.
 ## Out of scope for now
 
 Document understanding, vector search, multi-user synchronization and authorization, learned
-retrieval policies, and a graph-structured episodic model. These belong to the wider HumemAI
+retrieval policies, and a graph model richer than the events and their three edges. These belong to the wider HumemAI
 roadmap rather than to this component.

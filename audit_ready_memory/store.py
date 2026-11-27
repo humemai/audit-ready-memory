@@ -7,6 +7,12 @@ a ``Deletion`` event; the log itself stays intact.
 
 Each appended event gets a monotonically increasing ``seq`` assigned by
 the store, giving the log a total order independent of wall-clock time.
+
+The log is stored as a graph. Every event is a node, labelled ``Message``,
+``Document``, ``Recall``, or ``Deletion``. ``NEXT`` links consecutive messages
+of a session, ``RECALLED`` links a recall to what it read, and ``DELETED``
+links a deletion to what it removed. The edges are written in the same
+transaction as their event. Replay reads only the events and their ``seq``.
 """
 
 from __future__ import annotations
@@ -30,6 +36,13 @@ from .replay import MemoryState, replay
 from .retrieval import search
 
 _EVENT_TYPE = "MemoryEvent"
+_NODE_TYPES = {
+    "message": "Message",
+    "document": "Document",
+    "recall": "Recall",
+    "deletion": "Deletion",
+}
+_EDGE_TYPES = ("NEXT", "RECALLED", "DELETED")
 
 ConcreteEvent = Message | Document | Recall | Deletion
 
@@ -50,14 +63,28 @@ class Memory:
         path = str(path)
         if arcadedb.database_exists(path):
             self._db = arcadedb.open_database(path)
+            self._require_graph_layout(path)
         else:
             self._db = arcadedb.create_database(path)
             self._init_schema()
         self._next_seq = self._max_seq() + 1
+        # last message id per session, filled in as sessions are written to
+        self._last_message: dict[str | None, str | None] = {}
+
+    def _require_graph_layout(self, path: str) -> None:
+        rows = self._db.query(
+            "sql", "SELECT type FROM schema:types WHERE name = ?", _EVENT_TYPE
+        ).to_list()
+        if not rows or rows[0]["type"] != "vertex":
+            self._db.close()
+            raise ValueError(
+                f"{path} is not a graph memory database; databases written by "
+                "audit-ready-memory 0.0.2 or earlier use an older layout"
+            )
 
     def _init_schema(self) -> None:
         cmds = [
-            f"CREATE DOCUMENT TYPE {_EVENT_TYPE}",
+            f"CREATE VERTEX TYPE {_EVENT_TYPE}",
             f"CREATE PROPERTY {_EVENT_TYPE}.id STRING",
             f"CREATE PROPERTY {_EVENT_TYPE}.seq LONG",
             f"CREATE PROPERTY {_EVENT_TYPE}.kind STRING",
@@ -66,6 +93,11 @@ class Memory:
             f"CREATE PROPERTY {_EVENT_TYPE}.payload STRING",
             f"CREATE INDEX ON {_EVENT_TYPE} (id) UNIQUE",
             f"CREATE INDEX ON {_EVENT_TYPE} (seq) UNIQUE",
+            *(
+                f"CREATE VERTEX TYPE {name} EXTENDS {_EVENT_TYPE}"
+                for name in _NODE_TYPES.values()
+            ),
+            *(f"CREATE EDGE TYPE {name}" for name in _EDGE_TYPES),
         ]
         for cmd in cmds:
             self._db.command("sql", cmd)
@@ -83,10 +115,13 @@ class Memory:
             raise ValueError(f"event {event.id} already has seq={event.seq}")
         stored = event.model_copy(update={"seq": self._next_seq})
         data = event_to_dict(stored)
+        previous = None
+        if isinstance(stored, Message):
+            previous = self._last_message_id(stored.session_id)
         with self._db.transaction():
             self._db.command(
                 "sql",
-                f"INSERT INTO {_EVENT_TYPE} SET "
+                f"INSERT INTO {_NODE_TYPES[stored.kind]} SET "
                 "id = ?, seq = ?, kind = ?, timestamp = ?, "
                 "session_id = ?, payload = ?",
                 data["id"],
@@ -96,8 +131,41 @@ class Memory:
                 data["session_id"],
                 json.dumps(data),
             )
+            if previous is not None:
+                self._link("NEXT", previous, data["id"])
+            if isinstance(stored, Recall):
+                for target in dict.fromkeys(stored.recalled):
+                    self._link("RECALLED", data["id"], str(target))
+            elif isinstance(stored, Deletion):
+                for target in dict.fromkeys(stored.targets):
+                    self._link("DELETED", data["id"], str(target))
         self._next_seq += 1
+        if isinstance(stored, Message):
+            self._last_message[stored.session_id] = data["id"]
         return stored
+
+    def _last_message_id(self, session_id: str | None) -> str | None:
+        if session_id not in self._last_message:
+            clause = "session_id IS NULL" if session_id is None else "session_id = ?"
+            params = () if session_id is None else (session_id,)
+            rows = self._db.query(
+                "sql",
+                f"SELECT id, seq FROM Message WHERE {clause} "
+                "ORDER BY seq DESC LIMIT 1",
+                *params,
+            ).to_list()
+            self._last_message[session_id] = rows[0]["id"] if rows else None
+        return self._last_message[session_id]
+
+    def _link(self, edge: str, source: str, target: str) -> None:
+        self._db.command(
+            "sql",
+            f"CREATE EDGE {edge} "
+            f"FROM (SELECT FROM {_EVENT_TYPE} WHERE id = ?) "
+            f"TO (SELECT FROM {_EVENT_TYPE} WHERE id = ?)",
+            source,
+            target,
+        )
 
     def _require_content_event(self, event_id: UUID, action: str) -> None:
         existing = self.get(event_id)
@@ -248,6 +316,17 @@ class Memory:
             *params,
         ).to_list()
         return [event_from_dict(json.loads(row["payload"])) for row in rows]
+
+    def query(self, cypher: str, parameters: dict | None = None) -> list[dict]:
+        """Run a read-only Cypher query over the memory graph.
+
+        A query that would write raises an error from the database, so the log
+        stays append-only. This is an audit view: it also returns deleted and
+        expired content. Do not put its results into a model's context; use
+        :meth:`recall` for that.
+        """
+        args = () if parameters is None else (parameters,)
+        return self._db.query("opencypher", cypher, *args).to_list()
 
     def replay(self, *, up_to_seq: int | None = None) -> MemoryState:
         """Reconstruct memory state from the log, optionally at a past point."""

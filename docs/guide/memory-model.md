@@ -75,7 +75,8 @@ A tombstone.
 
 These are enforced in code and asserted in the test suite:
 
-1. **Append-only.** The store issues no `UPDATE` and no `DELETE`. Every write is an insert.
+1. **Append-only.** The store issues no `UPDATE` and no `DELETE`. Every write adds an event
+   and the edges that start or end at it.
 2. **`seq` is assigned by the store and strictly increases.** Appending an event that already
    has a `seq` raises `ValueError`.
 3. **`seq` survives reopening.** The store resumes from the highest `seq` in the database.
@@ -87,6 +88,45 @@ These are enforced in code and asserted in the test suite:
    `visible_documents`, and search, so it cannot re-enter a model's context.
 7. **Tombstones do not erase.** The targeted events remain in the log and remain retrievable
    with `get()`.
+
+## The graph
+
+The log is stored as a graph in ArcadeDB.
+
+| Node | One per |
+|---|---|
+| `Message`, `Document`, `Recall`, `Deletion` | event of that kind. All four also match `MemoryEvent` |
+
+| Edge | From | To |
+|---|---|---|
+| `NEXT` | a message | the next message with the same `session_id` |
+| `RECALLED` | a `Recall` | each message or document it read |
+| `DELETED` | a `Deletion` | each message or document it targeted |
+
+Messages without a `session_id` form one chain of their own. Follow `NEXT` backwards for the
+previous message. Each event and its edges are written in one transaction.
+
+Every node has `id`, `seq`, `kind`, `timestamp`, `session_id`, and `payload` (the whole event
+as JSON). Query the graph with Cypher:
+
+```python
+memory.query(
+    """
+    MATCH (r:Recall)-[:RECALLED]->(m:MemoryEvent {id: $id})
+    RETURN r.seq AS seq, r.timestamp AS at
+    ORDER BY r.seq
+    """,
+    {"id": str(message.id)},
+)
+```
+
+`query()` refuses anything that would write. It is an audit view, so it also returns deleted and
+expired content, and its results should not go into a model's context.
+
+Replay does not use the edges. It folds the events in `seq` order, as described below.
+
+Databases written by version 0.0.2 or earlier use a flat layout, and opening one raises
+`ValueError`.
 
 ## Replaying
 
