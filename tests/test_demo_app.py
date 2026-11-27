@@ -28,6 +28,13 @@ def _button(app, start: str):
     return next(b for b in app.button if b.label.startswith(start))
 
 
+def test_the_logo_files_exist_and_ship_in_the_image():
+    root = Path(APP).parent.parent
+    for name in ("lockup.png", "lockup-dark.png"):
+        assert (root / "docs" / "brand" / "export" / name).is_file(), name
+    assert "COPY docs/brand/export ./docs/brand/export" in (root / "Dockerfile").read_text()
+
+
 def test_local_app_loads_an_example_and_shows_it():
     app = _app()
     _button(app, "Load example: Neighbourhood").click().run()

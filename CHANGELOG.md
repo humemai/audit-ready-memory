@@ -19,6 +19,7 @@ All notable changes to this project. Versions are the tags of this repository.
 - A benchmark set with a documented input and output: `python -m benchmarks.run`.
 - The demo can be hosted with sign-in, one memory per account, and limits. It gained example data,
   keep times, and a view of why an item was read or removed.
+- The demo shows the HumemAI logo, linking to humem.ai.
 - Walkthroughs, templates, and guides on privacy, adoption, and reuse.
 
 ### Fixed
