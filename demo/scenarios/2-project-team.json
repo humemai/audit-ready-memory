@@ -1,0 +1,13 @@
+{
+  "title": "Project team",
+  "description": "A small team plans a release. Made-up data.",
+  "events": [
+    {"type": "message", "speaker": "lead", "text": "We aim to publish the release on Friday."},
+    {"type": "message", "speaker": "developer", "text": "The tests pass, but the installation guide is out of date."},
+    {"type": "document", "speaker": "developer", "name": "release-checklist.md", "text": "Release checklist: update the installation guide, write the changelog, tag the version, announce it."},
+    {"type": "message", "speaker": "designer", "text": "I will redo the screenshots for the guide on Wednesday."},
+    {"type": "message", "speaker": "lead", "text": "The staging password is blue-kettle, valid for today only.", "keep_minutes": 0},
+    {"type": "message", "speaker": "developer", "text": "Correction: the release moves to next Tuesday."},
+    {"type": "recall", "query": "release"}
+  ]
+}

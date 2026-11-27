@@ -1,0 +1,33 @@
+# The demo's look: the HumemAI design system's colours and fonts (docs/brand/css/tokens.css).
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+maxUploadSize = 1  # megabytes; demo/hosting.py sets the tighter limit
+
+[theme]
+font = "Schibsted Grotesk:https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&display=swap"
+# no commas in these addresses: Streamlit reads a comma as the start of a fallback font
+headingFont = "Newsreader:https://fonts.googleapis.com/css2?family=Newsreader:wght@400..600&display=swap"
+headingFontWeights = 500
+codeFont = "DM Mono:https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap"
+
+[theme.light]
+primaryColor = "#892122"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#FBF8F8"
+textColor = "#1C1716"
+linkColor = "#892122"
+borderColor = "#E8E3E2"
+
+[theme.dark]
+primaryColor = "#E88E8B"
+backgroundColor = "#0F0B0B"
+secondaryBackgroundColor = "#1C1716"
+textColor = "#FBF8F8"
+linkColor = "#E88E8B"
+borderColor = "#332C2B"

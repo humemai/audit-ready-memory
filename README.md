@@ -73,7 +73,8 @@ uv run --extra demo streamlit run demo/app.py
 ```
 
 Without an `OPENROUTER_API_KEY` the app still runs. Browsing, the audit log, replay, and
-deletion all work. Only the AI chat is disabled.
+deletion all work. Only the AI chat is disabled. It includes two made-up examples to load. The
+same app can be [hosted with sign-in](https://docs.humem.ai/audit-ready-memory/latest/guide/demo/).
 
 ## Honest limits
 
