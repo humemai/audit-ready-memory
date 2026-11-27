@@ -62,6 +62,13 @@ replay(*, up_to_seq=None) -> MemoryState
 Folds the log into a state. With `up_to_seq`, the state as it stood after that event.
 
 ```python
+query(cypher, parameters=None) -> list[dict]
+```
+
+Read-only Cypher over the [memory graph](../guide/memory-model.md#the-graph). A writing query
+raises an error. Returns deleted and expired content too.
+
+```python
 len(memory) -> int
 ```
 

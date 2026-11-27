@@ -49,6 +49,7 @@ gives the log a total order that does not depend on the clock.
 | See what the model saw | every read appends a `Recall` event naming the exact items |
 | Delete with a reason | `memory.delete(ids, reason="...")` appends a tombstone |
 | Retention | set `retain_until`; recalls skip expired content and `memory.expire()` records it |
+| Ask why | `memory.query()` runs read-only Cypher, for example every recall that read an item |
 | Run it anywhere | embedded database, no server, no network |
 
 ## Four kinds of event
