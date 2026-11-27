@@ -33,8 +33,8 @@ Funded by [SIDN Fund](https://www.sidnfonds.nl/).
 ## What it does not give you
 
 Deletion excludes content from every read path but does not erase it from the log.
-`retain_until` is recorded and not yet enforced. The log is ordered but not hash-chained, so
-it resists accidents rather than a determined operator. Retrieval is keyword overlap, not
+Expiry through `retain_until` is recorded only when you call `expire()`. The log is ordered
+but not hash-chained, so it resists accidents rather than a determined operator. Retrieval is keyword overlap, not
 semantic search.
 
 [Limitations](guide/limitations.md) covers all of this in full, and

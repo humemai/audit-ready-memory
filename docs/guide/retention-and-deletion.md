@@ -43,30 +43,46 @@ not do that for you today.** Options:
   visible events only, and keep the tombstones as evidence. This breaks `seq` continuity with
   the old log, so record why you did it.
 
-## `retain_until` is not enforced
+## Retention
 
-`Message` and `Document` accept a `retain_until` timestamp. **Nothing acts on it.** No
-component reads the field: not the store, not `replay()`, not `search()`. An event whose
-`retain_until` passed an hour ago is still stored, still replayed as visible, still
-searchable, and still eligible to enter a model's context.
-
-Treat it today as a **marker you set and enforce yourself**:
+`Message` and `Document` accept a `retain_until` timestamp. It is the moment from which the
+content may no longer be used.
 
 ```python
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
-state = memory.replay()
-now = datetime.now(timezone.utc)
-expired = [
-    m.id for m in state.visible_messages
-    if m.retain_until is not None and m.retain_until < now
-]
-if expired:
-    memory.delete(tuple(expired), reason="retention period elapsed")
+from audit_ready_memory import Message
+
+in_30_days = datetime.now(timezone.utc) + timedelta(days=30)
+memory.add_message(Message(speaker="anna", content="door code 4471", retain_until=in_30_days))
 ```
 
-Run that on a schedule and the field becomes a policy. Until enforcement is built in, do not
-document it to your own users as one.
+Two things act on it.
+
+**Reads skip expired content.** From that moment `memory.recall()` and the assistant leave the
+item out, so it cannot enter a model's context. This needs no scheduled job.
+
+**`expire()` records the removal.** It appends one `Deletion` naming everything that has
+expired, so expiry shows in the audit log like any other deletion.
+
+```python
+tombstone = memory.expire(requested_by="nightly job")  # None if nothing was due
+```
+
+Until `expire()` runs, an expired item is no longer recalled but still appears in
+`state.visible_messages` or `state.visible_documents`. Run it on a schedule that matches your
+retention promise. The library does not schedule it for you.
+
+`replay()` never reads the clock. To ask what had expired at a given moment, pass the time:
+
+```python
+memory.replay().expired(datetime(2026, 12, 1, tzinfo=timezone.utc))
+```
+
+`search()` takes the same kind of time as `as_of=`; without it, only deletion hides content.
+`record_recall()` records whatever you give it, including an expired item, because the log has to
+say what was actually read. Expiry is a deletion, so it is a tombstone too: the bytes stay in the
+log.
 
 ## Safe defaults
 
@@ -74,7 +90,7 @@ Sensible starting positions for a deployment:
 
 | Decision | Default | Why |
 |---|---|---|
-| Retention period | Set `retain_until` on everything, and sweep it | An unset field never expires; the burden should be on keeping, not on deleting |
+| Retention period | Set `retain_until` on everything, and run `expire()` on a schedule | An unset field never expires; the burden should be on keeping, not on deleting |
 | Deletion reason | Always specific and user-facing | It is already required; a reason of `"cleanup"` is worthless in an audit six months later |
 | `requested_by` | Fill it whenever a person asked | Distinguishes a subject request from routine housekeeping |
 | Database location | A directory you control, backed up as a unit | Local-first only helps if you know where the file is |

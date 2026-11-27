@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from datetime import datetime, timezone
 
 from .events import Document, Message, Recall
 from .retrieval import ContentEvent, search
@@ -98,10 +99,16 @@ class Assistant:
         self.recent_turns = recent_turns
 
     def _gather_context(self, query: str) -> list[ContentEvent]:
-        """Recent turns plus keyword matches, deduplicated, in log order."""
+        """Recent turns plus keyword matches, deduplicated, in log order.
+
+        Deleted content and content past its ``retain_until`` are left out.
+        """
         state = self._memory.replay()
-        recent = state.visible_messages[-self.recent_turns :]
-        found = search(state, query, limit=self.recall_limit)
+        now = datetime.now(timezone.utc)
+        expired = {item.id for item in state.expired(now)}
+        kept = [m for m in state.visible_messages if m.id not in expired]
+        recent = kept[-self.recent_turns :]
+        found = search(state, query, limit=self.recall_limit, as_of=now)
         by_id = {item.id: item for item in (*recent, *found)}
         return sorted(by_id.values(), key=lambda item: item.seq)
 

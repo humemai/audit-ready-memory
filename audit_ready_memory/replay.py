@@ -49,6 +49,22 @@ class MemoryState:
     def is_deleted(self, event_id: UUID) -> bool:
         return event_id in self.deleted
 
+    def expired(self, as_of: datetime) -> tuple[Message | Document, ...]:
+        """Visible content whose ``retain_until`` is at or before ``as_of``.
+
+        In log order. The time is an argument, never read from the clock, so
+        the state stays a function of the log alone. ``as_of`` must carry a
+        timezone.
+        """
+        if as_of.utcoffset() is None:
+            raise ValueError("as_of must be timezone-aware")
+        due = [
+            item
+            for item in (*self.visible_messages, *self.visible_documents)
+            if item.retain_until is not None and item.retain_until <= as_of
+        ]
+        return tuple(sorted(due, key=lambda item: item.seq))
+
 
 def replay(events: Iterable[ConcreteEvent]) -> MemoryState:
     """Fold an ordered event log into a :class:`MemoryState`.

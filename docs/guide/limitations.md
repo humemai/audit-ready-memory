@@ -9,10 +9,11 @@ Deletion is a tombstone. Content is excluded from every read path but stays in t
 append-only log and remains retrievable with `get()`. If you need bytes gone from disk, see
 the strategies in [retention and deletion](retention-and-deletion.md).
 
-## `retain_until` does nothing yet
+## Expiry needs a call to be recorded
 
-The field is recorded on messages and documents; no component reads it. Expired events remain
-visible and searchable. Sweep it yourself, or do not rely on it.
+`recall()` and the assistant skip content past its `retain_until`, but the deletion is only
+written to the log when you call `expire()`. Nothing schedules it. Like any deletion it leaves
+the content in the log.
 
 ## The log is not tamper-evident
 

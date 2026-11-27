@@ -12,6 +12,7 @@ the store, giving the log a total order independent of wall-clock time.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from uuid import UUID
 
@@ -137,11 +138,15 @@ class Memory:
         """Search visible memory and append a matching ``Recall`` event.
 
         The returned events are exactly the set recorded in the audit log;
-        retrieval and its audit record cannot diverge.
+        retrieval and its audit record cannot diverge. Content whose
+        ``retain_until`` has passed at the time of the recall is left out,
+        whether or not :meth:`expire` has run.
         """
-        items = search(self.replay(), query, limit=limit)
+        now = datetime.now(timezone.utc)
+        items = search(self.replay(), query, limit=limit, as_of=now)
         recall = self.record_recall(
             Recall(
+                timestamp=now,
                 query=query,
                 recalled=tuple(item.id for item in items),
                 session_id=session_id,
@@ -174,6 +179,33 @@ class Memory:
             session_id=session_id,
         )
         return self._append(event)
+
+    def expire(
+        self,
+        *,
+        as_of: datetime | None = None,
+        requested_by: str | None = None,
+        session_id: str | None = None,
+    ) -> Deletion | None:
+        """Delete everything whose retention has run out, as one ``Deletion``.
+
+        ``as_of`` defaults to now. It must carry a timezone and may not be in
+        the future, because a deletion cannot be undone. Returns ``None``, and
+        writes nothing, if nothing has expired.
+        """
+        now = datetime.now(timezone.utc)
+        as_of = as_of or now
+        expired = self.replay().expired(as_of)
+        if as_of > now:
+            raise ValueError(f"as_of {as_of.isoformat()} is in the future")
+        if not expired:
+            return None
+        return self.delete(
+            tuple(item.id for item in expired),
+            reason=f"retention period elapsed (as of {as_of.isoformat()})",
+            requested_by=requested_by,
+            session_id=session_id,
+        )
 
     def get(self, event_id: UUID | str) -> ConcreteEvent | None:
         """Return the event with the given id, or ``None`` if absent."""
